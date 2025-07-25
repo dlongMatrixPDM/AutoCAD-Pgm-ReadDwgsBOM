@@ -1,0 +1,52 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>ReadDwg-AutoCAD</Name>
+    <Description>Read AutoCAD drawings and produce a Raw Data Spreadsheet</Description>
+    <ProjectType>VisualBasic</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>ReadDwg-AutoCAD</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="31.034-BulkBOMFab3D.vbproj" File="31.034-BulkBOMFab3D.vbproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-app.config">31.034-app.config</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="31.034-app.config2">31.034-app.config2</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-AssemblyInfo.vb">31.034-AssemblyInfo.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-BOM_Menu3D.vb">31.034-BOM_Menu3D.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-BOM_Menu3D.Designer.vb">31.034-BOM_Menu3D.Designer.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-BOM_Menu3D.resx">31.034-BOM_Menu3D.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="31.034-BulkBOMFab.ico">31.034-BulkBOMFab.ico</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="31.034-BulkBOMFab3D_TemporaryKey.pfx">31.034-BulkBOMFab3D_TemporaryKey.pfx</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="31.034-ClassDiagram1.cd">31.034-ClassDiagram1.cd</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-Comparison.vb">31.034-Comparison.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-Conversions.vb">31.034-Conversions.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-DwgsNotFound.vb">31.034-DwgsNotFound.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-DwgsNotFound.Designer.vb">31.034-DwgsNotFound.Designer.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-DwgsNotFound.resx">31.034-DwgsNotFound.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-Error_Handler.vb">31.034-Error_Handler.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-File.vb">31.034-File.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-Formatting.vb">31.034-Formatting.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-SaveAsFilename.vb">31.034-SaveAsFilename.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-SaveAsFilename.Designer.vb">31.034-SaveAsFilename.Designer.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-SaveAsFilename.resX">31.034-SaveAsFilename.resX</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-ThisDrawing.vb">31.034-ThisDrawing.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-ThisWorkbook.vb">31.034-ThisWorkbook.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="31.034-UpgradeSupport.vb">31.034-UpgradeSupport.vb</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="app.config">app.config</ProjectItem>
+      <Folder Name="My Project" TargetFolderName="My Project">
+        <ProjectItem ReplaceParameters="false" TargetFileName="app.manifest">app.manifest</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.vb">Resources.Designer.vb</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.settings">Settings.settings</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.Designer.vb">Settings.Designer.vb</ProjectItem>
+      </Folder>
+      <Folder Name="Service References" TargetFolderName="Service References" />
+    </Project>
+  </TemplateContent>
+</VSTemplate>
