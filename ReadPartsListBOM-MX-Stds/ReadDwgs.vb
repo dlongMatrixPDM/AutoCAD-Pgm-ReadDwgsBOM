@@ -543,7 +543,7 @@ Err_BOM_Menu_Load:
         Dim CurrentDwgRev, CurrentDwgNo, FilePath, CurrentDWG, PrgName, WorkBookName, AdeptStd, AdeptPrg, BOMListSortChg As String
         Dim GetShipStds, GetInv1, GetInv2, Get2DShipQty, FullJobNo, FoundIndex, FirstDwg, FindIndex, ExistSTD, DrawingIndex, CurrentStdNo As String
         Dim GetPartNo, Get2DShipMk, GetQty, GetShipDesc, GetDesc, GetLen, GetMat, GetMat2, GetMat3, GetNotes, GetWt, GetProc, DwgItem2, Dwg As String
-        Dim BOMItemNam, Customer As String
+        Dim BOMItemNam, Customer, ChkSort As String
         Dim StdsWrkSht As Worksheet, StdItemsWrkSht As Worksheet
 
         PrgName = "StartButton_Click-Part1"
@@ -758,6 +758,12 @@ FindAttributes:
                         '    If IsNothing(DwgTitle3) = True Then
                         '        DwgTitle3 = Temparray(t).TextString
                         '    End If
+                        Case "C"      '-------DJL-07-25-2025      'Added Customer so that Shipping list could be produced also.
+                            If Customer = "" Then
+                                Customer = Temparray(t).TextString
+                                GenInfo3233.Customer = Customer
+                                CntCollect = (CntCollect + 1)
+                            End If
                         Case "CT"      '-------DJL-07-14-2025      'Added Customer so that Shipping list could be produced also.
                             If Customer = "" Then
                                 Customer = Temparray(t).TextString
@@ -874,6 +880,13 @@ JobNoChecked:
                                 Case "SLM"                          '-------MK"
                                     Get2DShipMk = TempAttributes(s).TextString
 
+                                    '-------Temp test to find Qty error.
+                                    'If Get2DShipMk = "E38-11" Or Get2DShipMk = "E38-03" Then          '-------DJL-07-28-2025
+                                    '    Stop
+                                    'ElseIf Get2DShipMk = "E38-04" Or Get2DShipMk = "E38-05" Then          '-------DJL-07-28-2025
+                                    '    Stop
+                                    'End If
+
                                         'If Get2DShipMk <> "" Then          '-------DJL-07-03-2025      'Moved below at Array collection if Inv1 and Inv2 are Not Nothing.
                                         '    GetShipStds = "Yes"
                                         'Else
@@ -932,18 +945,18 @@ JobNoChecked:
                         Next s
 
 BOMInfoCollected:
-                            If GetMat <> "" And MX2 = "Found" Then
-                                If GetPartNo = "" And Get2DShipMk = "" Then
-                                    GetPartNo = GetMat            'For some reason EEP Users have BOM insert with two m = A105 M2= Part number
+                        If GetMat <> "" And MX2 = "Found" Then
+                            If GetPartNo = "" And Get2DShipMk = "" Then
+                                GetPartNo = GetMat            'For some reason EEP Users have BOM insert with two m = A105 M2= Part number
 
-                                    If GetMat2 <> "" Then
-                                        GetMat = ""
-                                    End If
+                                If GetMat2 <> "" Then
+                                    GetMat = ""
                                 End If
                             End If
+                        End If
 
-                            'Dim BOMList(21, 1) As Object        'Moved above at open each drawing                    '-------DJL-06-10-2025-REFINE IT EACH TIME IT STARTS COLLECTING
-                            InsertionPT = BomItem.InsertionPoint
+                        'Dim BOMList(21, 1) As Object        'Moved above at open each drawing                    '-------DJL-06-10-2025-REFINE IT EACH TIME IT STARTS COLLECTING
+                        InsertionPT = BomItem.InsertionPoint
                             Dimscale = BomItem.XScaleFactor
                         'CompareX1 = 10.5 * Dimscale                         '-------DJL-07-03-2025      'Not Required.
                         'CompareX1 = InsertionPT(0) - CompareX1
@@ -953,24 +966,28 @@ BOMInfoCollected:
                         'CompareX2 = InsertionPT(0) - CompareX2
                         'CompareX2 = CompareX2 / Dimscale
 
-                        'If CompareX1 < 1 Or CompareX2 < 1 Then                         '-------DJL-07-03-2025      'Not Required.
+                        'If CompareX1 <1 Or CompareX2 <1 Then                         '-------DJL-07-03-2025      ' Not Required.
                         '    If CompareX1 > 0 Or CompareX2 > 0 Then
-                        '        BOMList(16, UBound(BOMList, 2)) = CStr(1)
-                        '    Else
-                        '        BOMList(16, UBound(BOMList, 2)) = CStr(2)
-                        '    End If
-                        'Else
-                        '    BOMList(16, UBound(BOMList, 2)) = CStr(2)
-                        'End If
+                                        '        BOMList(16, UBound(BOMList, 2)) = CStr(1)
+                                        '    Else
+                                        '        BOMList(16, UBound(BOMList, 2)) = CStr(2)
+                                        '    End If
+                                        'Else
+                                        '    BOMList(16, UBound(BOMList, 2)) = CStr(2)
+                                        'End If
 
-                        BOMList(1, UBound(BOMList, 2)) = CurrentDwgNo                               '-------Dwg number
+                                        BOMList(1, UBound(BOMList, 2)) = CurrentDwgNo                               '-------Dwg number
                         BOMList(2, UBound(BOMList, 2)) = CurrentDwgRev                              '-------Rev Number
                         BOMList(3, UBound(BOMList, 2)) = Get2DShipMk
 
-                        If GetQty = Nothing Then
+                        If GetQty = Nothing Or GetQty = "" Then                         '-------DJL-07-28-2025      'If GetQty = Nothing Then
                             BOMList(4, UBound(BOMList, 2)) = Get2DShipQty
                         Else
-                            BOMList(4, UBound(BOMList, 2)) = GetQty
+                            If GetQty = " " Then                         '-------DJL-07-28-2025
+                                BOMList(4, UBound(BOMList, 2)) = Get2DShipQty
+                            Else
+                                BOMList(4, UBound(BOMList, 2)) = GetQty
+                            End If
                         End If
 
                         If MX2 = "Found" Then
@@ -1120,8 +1137,8 @@ NextDwg:
                     Dim Val1, Val2 As String        '-------DJL-07-03-2025      'Dim Val1, Val2 As Single
                     Dim Val1Dbl, Val2Dbl As Double
                     Dim ValChg As String
-
-                    For v = 0 To (BOMListSort.Count - 1)
+ChkSortAgain:                                       '-------DJL-07-28-2025  'Added
+                For v = 0 To (BOMListSort.Count - 1)
                         Val1 = BOMListSort(v)
                         Val1Dbl = Val1
 
@@ -1136,12 +1153,17 @@ NextDwg:
                         If Val1Dbl < Val2Dbl Then             'If Val1 < Val2 Then            'If BOMListSort(v) < BOMListSort(v + 1) Then    'If BOMListSort(0) < BOMListSort(1) Then
                             ValChg = BOMListSort(v)                 'BOMListSortChg = BOMListSort(v)    'BOMListSortChg = BOMListSort(0)
                             BOMListSort(v) = BOMListSort(v + 1)     'BOMListSort(0) = BOMListSort(1)
-                            BOMListSort(v + 1) = ValChg             'BOMListSort(v + 1) = BOMListSortChg    'BOMListSort(1) = BOMListSortChg
-                        End If
+                        BOMListSort(v + 1) = ValChg             'BOMListSort(v + 1) = BOMListSortChg    'BOMListSort(1) = BOMListSortChg
+                        ChkSort = "Found"                   '-------DJL-07-28-2025  'Added
+                    End If
                     Next v
 
 SortNoDone:
-                    y = 1
+                If ChkSort = "Found" Then                   '-------DJL-07-28-2025  'Added
+                    ChkSort = ""
+                    GoTo ChkSortAgain
+                End If
+                y = 1
 
                     For x = 0 To (BOMListSort.Count)                           'For x = 0 To (BOMListSort.Count - 1)                                  '-------DJL-06-09-2025
 FindNextItem:

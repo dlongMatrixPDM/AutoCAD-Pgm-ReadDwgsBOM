@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ReadDwgs_AutoCAD||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|c:\\working copy github-pdm-2024-fileschkout-new\\autocad programs\\autocad-pgm-readdwgsbom\\readpartslistbom-mx-stds\\readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|solutionrelative:readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|solutionrelative:readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|c:\\working copy github-pdm-2024-fileschkout-new\\autocad programs\\autocad-pgm-readdwgsbom\\readpartslistbom-mx-stds\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|cc4014f5-b18d-439c-9352-f99d984cca85"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReadDwgs.vb",
+              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
+              "RelativeDocumentMoniker": "ReadDwgs.vb",
+              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
+              "RelativeToolTip": "ReadDwgs.vb",
+              "ViewState": "AgIAAM4DAAAAAAAAAAAYwOEDAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-07-25T18:18:44.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReadDwgs_AutoCAD",
+              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs_AutoCAD.vbproj",
+              "RelativeDocumentMoniker": "ReadDwgs_AutoCAD.vbproj",
+              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs_AutoCAD.vbproj",
+              "RelativeToolTip": "ReadDwgs_AutoCAD.vbproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-07-25T19:52:29.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReadDwgs.vb [Design]",
+              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
+              "RelativeDocumentMoniker": "ReadDwgs.vb",
+              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb [Design]",
+              "RelativeToolTip": "ReadDwgs.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-07-25T18:17:52.114Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
