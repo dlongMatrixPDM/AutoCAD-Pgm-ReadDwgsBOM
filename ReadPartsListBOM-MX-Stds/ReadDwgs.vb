@@ -3939,6 +3939,7 @@ Err_GetStdInfo:
     Private Sub PathBox_Click(sender As Object, e As EventArgs) Handles PathBox.Click
         Dim FileNam2 As String
         Dim lReturn As Int64
+        Dim UnderPos, MXPos, DwPos As Integer
 
         StartDir = System.Environment.SpecialFolder.Recent
 
@@ -3973,15 +3974,36 @@ Err_GetStdInfo:
 
         Dim Dir1 As DirectoryInfo = New DirectoryInfo(GenInfo3233.JobDir)
 
+        'New Problem file names so long and many variables 208-25-001-512-DW-10D06-01._INNER TANK BOTTOM SKETCH PLATE NESTING.dwg
+        'Look for "-DW-" and "._" then check next two Characters are MX, CA, or CH for standards.
+
         If DwgList.Items.Count = 0 Then
-            For Each DwgItem1 In Dir1.GetFiles("*.idw")
-                If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then
-                    DwgList.Items.Add(DwgItem1)
+            'For Each DwgItem1 In Dir1.GetFiles("*.idw")     '-------DJL-08-07-2025     'Not required.
+            '    If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then       '-------DJL-08-06-2025      'If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then
+            '        DwgList.Items.Add(DwgItem1)
+            '    End If
+            'Next DwgItem1
+            For Each DwgItem1 In Dir1.GetFiles("*.dwg")                     'Found error below where Bottom layouts was left off due to naming had "CH"
+                If InStr(DwgItem1.Name, "-DW-") > 0 Then     '-------DJL-08-07-2025      'Pittsburgh numbering solution
+                    DwPos = InStr(DwgItem1.Name, "-DW-")
+                    UnderPos = InStr(DwgItem1.Name, "_")
+                    FileNam = Mid(DwgItem1.Name, (UnderPos + 1), Len(DwgItem1.Name))
+                Else
+                    If InStr(DwgItem1.Name, "_MX") > 0 Then     '-------DJL-08-07-2025      'Tulsa numbering solution
+                        MXPos = InStr(DwgItem1.Name, "_MX")
+                        FileNam = Mid(DwgItem1.Name, (MXPos + 1), Len(DwgItem1.Name))
+                    Else
+                        If InStr(DwgItem1.Name, "-MX") > 0 Then     '-------DJL-08-07-2025      'Tulsa numbering solution
+                            MXPos = InStr(DwgItem1.Name, "-MX")
+                            FileNam = Mid(DwgItem1.Name, (MXPos + 1), Len(DwgItem1.Name))
+                        End If
+                    End If
                 End If
-            Next DwgItem1
-            For Each DwgItem1 In Dir1.GetFiles("*.dwg")
-                If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then                           'Remove standards until primary drawings are read.
-                    DwgList.Items.Add(DwgItem1)
+
+                If InStr(1, FileNam, "MX") <> 1 And InStr(1, FileNam, "CH") <> 1 Then     '-------DJL-08-07-2025      'Remove standards until primary drawings are read.       'If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then 
+                    If InStr(1, FileNam, "CA") <> 1 Then     '-------DJL-08-07-2025
+                        DwgList.Items.Add(DwgItem1)
+                    End If
                 End If
             Next DwgItem1
         End If

@@ -40,7 +40,7 @@
     <ProductName>Read AutoCAD drawings export to Excel for raw data source.</ProductName>
     <PublisherName>Matrix PDM Engineering-AutoCAD</PublisherName>
     <SuiteName>AutoCAD Programming</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
