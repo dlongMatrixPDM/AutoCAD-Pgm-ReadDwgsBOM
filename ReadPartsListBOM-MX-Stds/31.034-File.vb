@@ -164,7 +164,7 @@ Module File31_072
         End If
     End Function
 
-    Function CopyBOMFile(ByVal OldFileNam As String, ByVal RevNo As String) As Object
+    Function CopyBOMFile(ByVal OldFileNam As String, ByVal RevNo As String, ByVal ExcelApp As Object) As Object
         '------------------------------------------------------------------------------------------------
         '-------Creator:        Dennis J. Long
         '-------Date:           Sometime before 4/2/2024
@@ -182,6 +182,7 @@ Module File31_072
         Dim BOMWrkSht As Worksheet
         Dim WorkSht As Worksheet
         Dim Workbooks As Microsoft.Office.Interop.Excel.Workbooks
+        Dim Workbook As Microsoft.Office.Interop.Excel.Workbook
         Dim SlashPos, PrevSlashPos As Integer
 
         BOMMnu = ReadDwgs
@@ -214,14 +215,28 @@ Module File31_072
             JobNo = .Range("B3").Value
         End With
 
+        If InStr(JobNo, "Job No:") > 0 Then                           '-------DJL-08-07-2025
+            JobNo = GenInfo3233.FullJobNo
+        End If
+
         PrgName = "CopyBOMFile-MakingSpdsht"                            '-------DJL-12-18-2024
 
-        If JobNo = "Job No:" Then
+        If RevNo = "" Then                                      '-------DJL-08-07-2025
+            RevNo = ReadDwgs.ComboBxRev.Text
+            GenInfo3233.RevNo = RevNo
+        End If
+
+        If InStr(JobNo, "Job No:") > 0 Then                           '-------DJL-08-07-2025      'If JobNo = "Job No:" Then
             JobNo = OldFileNam
             Test = JobNo
             SearchSlash = "\"
             SlashPos = InStr(Test, SearchSlash)
             PrevSlashPos = 0
+
+            If Mid(JobNo, Len(JobNo), 1) = "\" Then                 '-------It has asked that we copy template to users machine before writing to Spreadsheet Jeff Wilson 08-07-2025
+                JobNo = Mid(JobNo, 1, (Len(JobNo) - 1))
+                Test = JobNo
+            End If
 
             While SlashPos > 0
                 If PrevSlashPos > 0 Then
@@ -243,11 +258,17 @@ Module File31_072
         PrgName = "CopyBOMFile-JobNoFound"                            '-------DJL-12-18-2024
         BomListRev = RevNo
 
+        If Regex.IsMatch(Strings.Right(Mid(JobNo, 1, 1), 1), "A-Z") Then        '-------DJL-08-07-2025
+            GoTo DbChkJobNo
+        End If
+
         If JobNo = Nothing Then
+DbChkJobNo:
             JobNo = InputBox("What is your Job Number?")
         End If
 
-        BomListFileName = FileDir & JobNo & "-BULKBOM-R" & BomListRev & ".xls"
+        ExcelApp.Visible = True             '-------DJL-08-07-2025
+        BomListFileName = ReadDwgs.PathBox.Text & JobNo & "-BULKBOM-R" & BomListRev & ".xls"              '-------DJL-08-08-2025      'BomListFileName = FileDir & JobNo & "-BULKBOM-R" & BomListRev & ".xls"
         PrgName = "CopyBOMFile-ProducingSpdSht"                            '-------DJL-12-18-2024
         BOMMnu.MainBOMFile.Worksheets.Copy()
         NewBulkBOM = BOMWrkSht
@@ -273,8 +294,9 @@ CheckFileName:
                 Kill((BomListFileName))
                 Workbooks.Application.ActiveWorkbook.SaveAs(Filename:=BomListFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)
                 PrgName = "CopyBOMFile-DelExistingSht"                            '-------DJL-12-18-2024
-                ProgramFinished()                           '-------DJL-12-19-2024
 
+                '-------Moved this program because IT request to copy form to user directory before updating spreadsheet.
+                'ProgramFinished()                           '-------DJL-12-19-2024
             ElseIf Response = MsgBoxResult.No Then
                 GenInfo3233.BomListFileName = JobNo & "-BULKBOM-R" & BomListRev & ".xls"            'BomListFileName
                 GenInfo3233.FileDir = FileDir
@@ -286,8 +308,19 @@ CheckFileName:
             MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")     '-------DJL-12-18-2024
             Workbooks.Application.ActiveWorkbook.SaveAs(Filename:=BomListFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)
 
-            ProgramFinished()                           '-------DJL-12-19-2024
+            '-------Moved this program because IT request to copy form to user directory before updating spreadsheet.
+            'ProgramFinished()                           '-------DJL-12-19-2024
         End If
+
+        For Each Workbook In ExcelApp.Workbooks                         '-------DJL-08-08-2025
+            Workbook.Activate()
+
+            If InStr(BomListFileName, Workbook.Name) = 0 Then
+                Workbook.Close(False)
+            End If
+        Next
+
+        'ExcelApp.Visible = False             '-------DJL-08-08-2025
 
 Err_CopyBOMFile:
         ErrNo = Err.Number
@@ -359,6 +392,7 @@ Err_CopyBOMFile:
         Dim Workbooks2 As Microsoft.Office.Interop.Excel.Workbooks      '-------DJL-12-19-2024
 
         Workbooks2 = ExcelApp.Workbooks      '-------DJL-12-19-2024
+        ExcelApp.Visible = True             '-------DJL-08-07-2025
 
         '-------DJL-12-19-2024-Check to make sure user has a Valid directory srtuture.
         PrgName = "FinishCopyBOMFile-ChkDir"
@@ -501,7 +535,7 @@ Err_FinishCopyBOMFile:
         ExcelApp.Application.Visible = True
 
         PrgName = "StartButton_Click-Part34"
-        BOMMnu.MainBOMFile.Close(False)
+        'BOMMnu.MainBOMFile.Close(False)                            '-------DJL-08-08-2025  'Leave spreadsheet open.
         PrgName = "StartButton_Click-Part35"
         BOMMnu.Close()
 

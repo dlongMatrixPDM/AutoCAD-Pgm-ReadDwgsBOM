@@ -108,6 +108,7 @@ Public Class ReadDwgs                      'BulkBOMFab3D
     Public BOMWrkSht As Worksheet
     Public ShippingWrkSht As Worksheet
     Public db_String As String
+    Public OldFileNam As String
     Public Sapi As Object = CreateObject("SAPI.spvoice")
 
     Private Sub AddAllButton_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles BtnAddAll.Click
@@ -324,6 +325,7 @@ Err_AddButton_Click:
             DwgPos = 0
             GetDwg = SelectList.SelectedItems.Item(i).ToString
             Me.DwgList.Items.Add(GetDwg)
+            CntDwgs = (CntDwgs + 1)                         '-------DJL-08-08-2025      'Added
             DwgListArray(CntDwgs) = SelectList.SelectedItems.Item(i)  'So create Array and delete after complete.
         Next i
 
@@ -333,7 +335,7 @@ Err_AddButton_Click:
             BtnStart2.Enabled = False
         End If
 
-        For i = 0 To (CountDwgs - 1)
+        For i = 0 To (CntDwgs)                            '-------DJL-08-08-2025      'For i = 0 To (CountDwgs - 1)
             SelectList.Items.Remove(DwgListArray(i))
         Next
 
@@ -1399,7 +1401,7 @@ SortFinished:
             'With StdsWrkSht
             LookForStd = StdsFnd(0, l)            '.Range("H" & (l + 4)).Value            'LookForStd = .Range("N" & (l + 4)).Value
 
-            If LookForStd = "" Or LookForStd = Nothing Then
+            If LookForStd = "" Or LookForStd = Nothing Or LookForStd = " " Then             '-------DJL-08-08-2025      'If LookForStd = "" Or LookForStd = Nothing Then
                 GoTo Nextl
             End If
 
@@ -1498,7 +1500,7 @@ Continue_Dwgs:  '------------------------------Get Standard drawing information 
         For j = 1 To (UBound(StdsFnd, 2) - 1)
             LookForStd = StdsFnd(0, j)
 
-            If LookForStd = "" Then
+            If LookForStd = "" Or LookForStd = " " Then         '-------DJL-08-08-2025      'If LookForStd = "" Then
                 GoTo NextDwg2
             End If
 
@@ -1919,9 +1921,10 @@ NextDwg2:
         End With
 
         PrgName = "StartButton_Click-Part32"
-        OldFileNam = Me.PathBox.Text
-        FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2024.xltm"          '-------DJL-11-10-2024          'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2023.xltm"
-        CopyBOMFile(OldFileNam, RevNo)
+        'OldFileNam = Me.PathBox.Text          'Not Required.     '-------DJL-08-07-2025
+        'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2024.xltm"          'Not Required.     '-------DJL-08-07-2025      '-------DJL-11-10-2024          'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2023.xltm"
+        CopyBOMFile(OldFileNam, RevNo, ExcelApp)                          '-------DJL-08-08-2025         'Moved request by IT.
+        ProgramFinished()
 Cancel:
 
 Err_StartButton_Click:
@@ -2172,9 +2175,10 @@ Err_StartButton_Click:
                         LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-08-2025
                         LastRowCnt = (LastRowCnt + 1)
 
-                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025
-                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()       '-------DJL-07-10-2025      'StdDwgRow      '.Rows(RowNo & ":" & RowNo).Insert() 
-                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)    '-------DJL-07-10-2025
+                        '-------DJL-08-08-2025  'Next three lines not required.
+                        '.Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025
+                        '.Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()       '-------DJL-07-10-2025      'StdDwgRow      '.Rows(RowNo & ":" & RowNo).Insert() 
+                        'RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)    '-------DJL-07-10-2025
 
                         GetStdPartNo = STDsList(9, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetStdPartNo = BOMList(9, i)
                         GetMXStd = STDsList(10, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetMXStd = BOMList(10, i) 
@@ -4172,13 +4176,30 @@ NextInstance:
 
         If Dir("K:\CAD\VBA\XLTSheets\ReadAutoCAD-Dwgs.xltm") <> vbNullString Then
             FileToOpen = "K:\CAD\VBA\XLTSheets\ReadAutoCAD-Dwgs.xltm"
+            FileSaveAS = PathBox.Text & GenInfo3233.FullJobNo & "-BULKBOM-R" & Me.ComboBxRev.Text & ".xls"  '-------DJL-08-08-2025      'Moved     'FileSaveAS = PathBox.Text & "\" & GenInfo3233.FullJobNo & "ReadDwgsAutoCAD.xls"
+            System.IO.File.Copy(FileToOpen, FileSaveAS, True)                           '-------DJL-08-08-2025      'Added
         End If
 
-        If Dir(FileToOpen) <> "" Then
-            MainBOMFile = ExcelApp.Application.Workbooks.Open(FileToOpen)
+        If File.Exists(FileSaveAS) Then                                                 '-------DJL-08-08-2025
+            Dim attributes As FileAttributes = File.GetAttributes(FileSaveAS)
+
+            If (attributes And FileAttributes.ReadOnly) = FileAttributes.ReadOnly Then
+                File.SetAttributes(FileSaveAS, attributes And Not FileAttributes.ReadOnly)
+            End If
+
+            If (attributes And FileAttributes.Archive) = FileAttributes.Archive Then
+                File.SetAttributes(FileSaveAS, attributes And Not FileAttributes.Archive)
+            End If
         End If
 
-        FileSaveAS = PathBox.Text & "\" & GenInfo3233.FullJobNo & "ReadDwgsAutoCAD.xls"
+        If Dir(FileSaveAS) <> "" Then                           '-------DJL-08-08-2025      'If Dir(FileToOpen) <> "" Then
+            MainBOMFile = ExcelApp.Application.Workbooks.Open(FileSaveAS)               '-------DJL-08-08-2025      'MainBOMFile = ExcelApp.Application.Workbooks.Open(FileToOpen)
+        End If
+
+        'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2024.xltm"          '-------DJL-08-07-2025      'Not Required
+        'OldFileNam = Me.PathBox.Text            '-------DJL-08-07-2025
+        'CopyBOMFile(OldFileNam, RevNo, ExcelApp)          '-------DJL-08-08-2025  'Not required anymore.    'Bill Sieg's machine is having problems open excel file and writing to it in the later part of progrm moving save spreadshet to here to see if this is the problem. 
+
         Workbooks = ExcelApp.Workbooks
         WorkShtName = "BulK BOM"
         BOMWrkSht = Workbooks.Application.Worksheets(WorkShtName)
