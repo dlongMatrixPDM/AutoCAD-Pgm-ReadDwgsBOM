@@ -2183,6 +2183,11 @@ Err_StartButton_Click:
                         GetStdPartNo = STDsList(9, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetStdPartNo = BOMList(9, i)
                         GetMXStd = STDsList(10, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetMXStd = BOMList(10, i) 
 
+                        '-------No reason to look for something that is blank or equal to a space " ".
+                        If GetStdPartNo = " " And GetMXStd = "" Then                    '-------DJL-08-12-2025      'Found a space for the GetStdPartNo on users drawing.
+                            GoTo FoundSpace
+                        End If
+
                         For l = 1 To (UBound(StdsFnd2, 2) - 1)
                             For m = 5 To (UBound(StdsBOMList, 2) - 1)
                                 FoundStdQty = StdsBOMList(4, m)

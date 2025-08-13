@@ -72,3 +72,40 @@ C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\AutoCAD-Pgm-Rea
 C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.exe
 C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\.xml
 C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.pdb
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\ReadDwgs_AutoCAD.exe.config
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\ReadDwgs_AutoCAD.exe.manifest
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\ReadDwgs_AutoCAD.application
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\ReadDwgs_AutoCAD.exe
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\ReadDwgs_AutoCAD.pdb
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\.xml
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.ADODB.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.AutoCAD.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.JRO.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.MSDAOSP.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.MSDASC.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.Scripting.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.SpeechLib.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\bin\Interop.VBIDE.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.vbproj.AssemblyReference.cache
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.ADODB.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.AutoCAD.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.AXDBLib.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.JRO.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.Microsoft.Office.Core.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.MSDAOSP.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.MSDASC.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.Scripting.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.SpeechLib.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\Interop.VBIDE.dll
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.vbproj.ResolveComReference.cache
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.ReadDwgs.resources
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.DwgsNotFound.resources
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.Resources.resources
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.SaveAsFilename.resources
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.vbproj.GenerateResource.cache
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.vbproj.CoreCompileInputs.cache
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.exe.manifest
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.application
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.exe
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\.xml
+C:\Working Copy GitHub-PDM-2024-FilesChkOut-New\AutoCAD Programs\Completed Work\AutoCAD-Pgm-ReadDwgsBOM\ReadPartsListBOM-MX-Stds\obj\Debug\ReadDwgs_AutoCAD.pdb
