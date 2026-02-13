@@ -1540,7 +1540,7 @@ Continue_Dwgs:  '------------------------------Get Standard drawing information 
             GroupCode(0) = 0
             BlockData(0) = "INSERT"
             GroupCode(1) = 2
-            BlockData(1) = "AMW_TITLE,OSF_TITLE,OSF_TITLE_D,MX_TITLE,LNG_TITLE_D,MX_TITLE_SP,Title Blocks Matrix"
+            BlockData(1) = "AMW_TITLE,OSF_TITLE,OSF_TITLE_D,MX_TITLE,LNG_TITLE_D,MX_TITLE_SP,Title Blocks Matrix,MPDM TULSA 11x17"      '-------DJL-02-11-2026      'Added--->MPDM TULSA 11x17
             BlockSel.Select(AutoCAD.AcSelect.acSelectionSetAll, , , GroupCode, BlockData)
 
             Temparray = BlockSel.Item(0).GetAttributes
