@@ -16,7 +16,7 @@
     <AssemblyName>ReadDwgs_AutoCAD</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <ManifestCertificateThumbprint>2BD3C5779F913E72C208C7E85350C496A2BED429</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>428B92B90395637A564FE8CCD17C92E37EDF5013</ManifestCertificateThumbprint>
     <ManifestKeyFile>ReadDwgs_AutoCAD_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
@@ -40,7 +40,7 @@
     <ProductName>Read AutoCAD drawings export to Excel for raw data source.</ProductName>
     <PublisherName>Matrix PDM Engineering-AutoCAD</PublisherName>
     <SuiteName>AutoCAD Programming</SuiteName>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -243,9 +243,7 @@
     <Compile Include="31.034-DwgsNotFound.Designer.vb">
       <DependentUpon>31.034-DwgsNotFound.vb</DependentUpon>
     </Compile>
-    <Compile Include="31.034-DwgsNotFound.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="31.034-DwgsNotFound.vb" />
     <Compile Include="31.034-File.vb">
       <SubType>Code</SubType>
     </Compile>

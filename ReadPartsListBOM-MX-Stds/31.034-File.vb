@@ -18,12 +18,8 @@ Module File31_072
     Private Const BIF_RETURNONLYFSDIRS As Short = 1
     Private Const MAX_PATH As Short = 260
 
-    'Private Declare Function CreateDirectory Lib "kernel32.dll" Alias "CreateDirectoryA" (ByVal lpPathName As String, ByRef lpSecurityAttributes As ReadDwgs.SECURITY_ATTRIBUTES) As Integer           'Misc31_090.InputType2.SECURITY_ATTRIBUTES) As Integer
     Private Declare Function FindClose Lib "kernel32.dll" (ByVal hFindFile As Integer) As Integer
-    'Private Declare Function FindFirstFile Lib "kernel32.dll" Alias "FindFirstFileA" (ByVal lpFileName As String, ByRef lpFindFileData As WIN32_FIND_DATA) As Integer
-    'Private Declare Function FindNextFile Lib "kernel32.dll" Alias "FindNextFileA" (ByVal hFindFile As Integer, ByRef lpFindFileData As WIN32_FIND_DATA) As Integer
     Private Declare Function GetPrivateProfileInt Lib "kernel32.dll" Alias "GetPrivateProfileIntA" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal nDefault As Integer, ByVal lpFileName As String) As Integer
-    'Private Declare Function SHBrowseForFolder Lib "shell32.dll" (ByRef lpbi As BrowseInfo) As Integer
     Private Declare Function SHGetPathFromIDList Lib "shell32.dll" (ByVal pidList As Integer, ByVal lpBuffer As String) As Integer
     Private Declare Function GetCurrentVBAProject Lib "vba332.dll" Alias "EbGetExecutingProj" (ByRef hProject As Integer) As Integer
     Private Declare Function GetAddr Lib "vba332.dll" Alias "TipGetLpfnOfFunctionId" (ByVal hProject As Integer, ByVal strFunctionId As String, ByRef lpfn As Integer) As Integer
@@ -32,83 +28,19 @@ Module File31_072
 
     Dim WorkShtName, PriPrg, ErrNo, ErrMsg, ErrSource, ErrDll, ErrLastLineX, PrgName As String
     Dim ErrException As System.Exception
-    'Public ExcelApp As Object
-    'Public FirstTimeThru As String
-    'Public FuncGetDataNew As String
     Public NewBulkBOM As Object
-    'Public MainBOMFile As Microsoft.Office.Interop.Excel.Workbook
-    'Public NewPlateBOM As Object
-    'Public NewStickBOM As Object
-    'Public NewPurchaseBOM As Object
-    'Public OldBOMFile As Microsoft.Office.Interop.Excel.Workbook
-    'Public OldBulkBOM As Object
     Public OldBulkBOMFile As String
-    'Public OldPlateBOM As Object
-    'Public OldStickBOM As Object
-    'Public OldPurchaseBOM As Object
-    'Public NewBOM As Object
-    'Public OldBOM As Object
-    'Public OldStdItems As Object
-    'Public BOMType As String
-    'Public BOMSheet As String
-    'Public RowNo As String
-    'Public RowNo2 As String
-    'Public OldStdDwg As String
-    'Public NewStdDwg As String
     Public ExceptionPos As Integer
     Public CallPos As Integer
     Public CntExcept As Integer
-    'Public Count As Integer
+
     Public PassFilename As String
     Public ReadyToContinue As Boolean
-    ''Public CBclicked As Boolean
-    'Public errorExist As Boolean
-    'Public AcadApp As Object
-    'Public AcadDoc As Object
-    'Public RevNo As String
-    'Public RevNo2 As String
-    'Public Continue_Renamed As Boolean
-    'Public SortListing As Boolean
-    'Public MatInch As Double
-    'Public FoundDir As String
-    'Public SearchException As String
-    'Public ExceptPos As Integer
-    ''Public ThisDrawing As AutoCAD.AcadDocument
-    'Public LytHid As Boolean
     Public DwgItem As String
-    'Public ErrFound As String
-    'Public ErrorFoundNew As String
-    'Public myarray As Object
-    'Public myarray2 As Object
-
     Public GetFramesSrt
     Public PrgLineNo As String
     Public CntFrames As Integer
     Public ProblemAt As String                          '-------DJL-12-18-2024
-
-    'Private Structure BrowseInfo
-    '    Dim hwndOwner As Integer
-    '    Dim pIDLRoot As Integer
-    '    Dim pszDisplayName As String
-    '    Dim lpszTitle As String
-    '    Dim ulFlags As Integer
-    '    Dim lpfnCallback As Integer
-    '    Dim lParam As Integer
-    '    Dim iImage As Integer
-    'End Structure
-
-    'Private Structure WIN32_FIND_DATA
-    '    Dim dwFileAttributes As Integer
-    '    Dim ftCreationTime As FILETIME
-    '    Dim ftLastAccessTime As FILETIME
-    '    Dim ftLastWriteTime As FILETIME
-    '    Dim nFileSizeHigh As Integer
-    '    Dim nFileSizeLow As Integer
-    '    Dim dwReserved0 As Integer
-    '    Dim dwReserved1 As Integer
-    '    <VBFixedString(MAX_PATH), System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=MAX_PATH)> Public cFileName() As Char
-    '    <VBFixedString(14), System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=14)> Public cAlternate() As Char
-    'End Structure
 
     Private Structure OPENFILENAME
         Dim lStructSize As Integer
@@ -219,14 +151,14 @@ Module File31_072
             JobNo = GenInfo3233.FullJobNo
         End If
 
-        PrgName = "CopyBOMFile-MakingSpdsht"                            '-------DJL-12-18-2024
+        PrgName = "CopyBOMFile-MakingSpdsht"
 
-        If RevNo = "" Then                                      '-------DJL-08-07-2025
+        If RevNo = "" Then
             RevNo = ReadDwgs.ComboBxRev.Text
             GenInfo3233.RevNo = RevNo
         End If
 
-        If InStr(JobNo, "Job No:") > 0 Then                           '-------DJL-08-07-2025      'If JobNo = "Job No:" Then
+        If InStr(JobNo, "Job No:") > 0 Then
             JobNo = OldFileNam
             Test = JobNo
             SearchSlash = "\"
@@ -278,33 +210,28 @@ CheckFileName:
         Dim Response As Object
 
         If Dir(BomListFileName) <> vbNullString Then
-            PrgName = "CopyBOMFile-GettingSpdShtNam"                            '-------DJL-12-18-2024
+            PrgName = "CopyBOMFile-GettingSpdShtNam"
 
             Msg = "File " & BomListFileName & " already exists. Do you want to overwrite it?"
             Style = CStr(MsgBoxStyle.YesNo)
             Title = "Save Bulk BOM"
-
-            'Next Look at "ReadyToContinue = False"
-            'If SaveAsFilename.Focused = False Then                            '-------DJL-12-18-2024      'If SaveAsFilename.Enabled = False Then <> 1 Then    'If SaveAsFilename.AutoValidate = 1
             Response = MsgBox(Msg, CDbl(Style), Title)
-            'End If
 
             If Response = MsgBoxResult.Yes Then
                 MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")     '-------DJL-12-18-2024
                 Kill((BomListFileName))
                 Workbooks.Application.ActiveWorkbook.SaveAs(Filename:=BomListFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)
-                PrgName = "CopyBOMFile-DelExistingSht"                            '-------DJL-12-18-2024
+                PrgName = "CopyBOMFile-DelExistingSht"
 
                 '-------Moved this program because IT request to copy form to user directory before updating spreadsheet.
-                'ProgramFinished()                           '-------DJL-12-19-2024
             ElseIf Response = MsgBoxResult.No Then
-                GenInfo3233.BomListFileName = JobNo & "-BULKBOM-R" & BomListRev & ".xls"            'BomListFileName
+                GenInfo3233.BomListFileName = JobNo & "-BULKBOM-R" & BomListRev & ".xls"
                 GenInfo3233.FileDir = FileDir
                 SaveAsFilename.Show()
-                PrgName = "CopyBOMFile-ShowRenameForm"                            '-------DJL-12-18-2024
+                PrgName = "CopyBOMFile-ShowRenameForm"
             End If
         Else
-            PrgName = "CopyBOMFile-ShowRenForm3"                            '-------DJL-12-18-2024
+            PrgName = "CopyBOMFile-ShowRenForm3"
             MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")     '-------DJL-12-18-2024
             Workbooks.Application.ActiveWorkbook.SaveAs(Filename:=BomListFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)
 
@@ -319,8 +246,6 @@ CheckFileName:
                 Workbook.Close(False)
             End If
         Next
-
-        'ExcelApp.Visible = False             '-------DJL-08-08-2025
 
 Err_CopyBOMFile:
         ErrNo = Err.Number
@@ -389,10 +314,10 @@ Err_CopyBOMFile:
         Dim BOMMnu As ReadDwgs
         BOMMnu = ReadDwgs
         '-----------------------------------------------------------
-        Dim Workbooks2 As Microsoft.Office.Interop.Excel.Workbooks      '-------DJL-12-19-2024
+        Dim Workbooks2 As Microsoft.Office.Interop.Excel.Workbooks
 
-        Workbooks2 = ExcelApp.Workbooks      '-------DJL-12-19-2024
-        ExcelApp.Visible = True             '-------DJL-08-07-2025
+        Workbooks2 = ExcelApp.Workbooks
+        ExcelApp.Visible = True
 
         '-------DJL-12-19-2024-Check to make sure user has a Valid directory srtuture.
         PrgName = "FinishCopyBOMFile-ChkDir"
@@ -438,22 +363,21 @@ Err_CopyBOMFile:
 
         If PassFileName <> vbNullString And ReadyToContinue = True Then
             If Right(PassFileName, 4) = ".xls" Then
-                MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")     '-------DJL-12-18-2024
-                PrgName = "FinishCopyBOMFile-Gettingsave1"                             '-------DJL-12-18-2024
+                MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")
+                PrgName = "FinishCopyBOMFile-Gettingsave1"
                 Workbooks2.Application.ActiveWorkbook.SaveAs(Filename:=PassFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)            '-------DJL-12-19-2024
-                ProgramFinished()                           '-------DJL-12-19-2024
+                ProgramFinished()
             Else
-                MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")     '-------DJL-12-18-2024
-                PrgName = "FinishCopyBOMFile-Gettingsave2"                             '-------DJL-12-18-2024
+                MsgBox("After 30 seconds check your spreadsheet make sure it is not waiting on you to pick Save/Continue?")
+                PrgName = "FinishCopyBOMFile-Gettingsave2"
                 Workbooks2.Application.ActiveWorkbook.SaveAs(Filename:=PassFileName, FileFormat:=XlFileFormat.xlWorkbookNormal, Password:="", WriteResPassword:="", ReadOnlyRecommended:=False, CreateBackup:=False, AddToMru:=True)            '-------DJL-12-19-2024
-                ProgramFinished()                           '-------DJL-12-19-2024
+                ProgramFinished()
             End If
         ElseIf PassFileName = "CancelProgram" And ReadyToContinue = False Then
-            PrgName = "CopyBOMFile-PrgCancelByUser"                            '-------DJL-12-18-2024
+            PrgName = "CopyBOMFile-PrgCancelByUser"
             Exit Function
         Else
-            PrgName = "CopyBOMFile-CheckFileName"                            '-------DJL-12-18-2024
-            'GoTo CheckFileName         'Do not do this when user wants to use anothwer file name.  '-------DJL-12-18-2024
+            PrgName = "CopyBOMFile-CheckFileName"
         End If
 
 Err_FinishCopyBOMFile:
@@ -535,7 +459,6 @@ Err_FinishCopyBOMFile:
         ExcelApp.Application.Visible = True
 
         PrgName = "StartButton_Click-Part34"
-        'BOMMnu.MainBOMFile.Close(False)                            '-------DJL-08-08-2025  'Leave spreadsheet open.
         PrgName = "StartButton_Click-Part35"
         BOMMnu.Close()
 

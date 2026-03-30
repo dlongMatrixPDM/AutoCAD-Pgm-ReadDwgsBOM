@@ -15,7 +15,7 @@ Friend Class SaveAsFilename
         BOMMnu = ReadDwgs
         PrgName = "SaveButton_Click"
 
-        On Error GoTo Err_SaveButton_Click          '-------DJL-12-17-2024--Bill Sieg is getting Errors that I am not seeing Let's do some additional error tracking.
+        On Error GoTo Err_SaveButton_Click
 
         If TextBox1.Text <> vbNullString Then
             PassFilename = TextBox1.Text
@@ -25,10 +25,10 @@ Friend Class SaveAsFilename
         End If
 
         Me.Close()
-        FinishCopyBOMFile(PassFilename)                    '-------DJL-12-19-2024
+        FinishCopyBOMFile(PassFilename)
 
 Err_SaveButton_Click:
-        ErrNo = Err.Number      '-------DJL-12-17-2024--Bill Sieg is getting Errors that I am not seeing Let's do some additional error tracking.
+        ErrNo = Err.Number
 
         If ErrNo <> 0 Then
             PriPrg = "BulkBOMFab3D-Intent"
@@ -72,16 +72,16 @@ Err_SaveButton_Click:
         BOMMnu = ReadDwgs
         PrgName = "CancelButton_Renamed"
 
-        On Error GoTo Err_CancelButton_Renamed          '-------DJL-12-17-2024--Bill Sieg is getting Errors that I am not seeing Let's do some additional error tracking.
+        On Error GoTo Err_CancelButton_Renamed
 
         PassFilename = "CancelProgram"
         ReadyToContinue = False
         Me.Close()
 
-        FinishCopyBOMFile(PassFilename)                    '-------DJL-12-19-2024
+        FinishCopyBOMFile(PassFilename)
 
 Err_CancelButton_Renamed:
-        ErrNo = Err.Number      '-------DJL-12-17-2024--Bill Sieg is getting Errors that I am not seeing Let's do some additional error tracking.
+        ErrNo = Err.Number
 
         If ErrNo <> 0 Then
             PriPrg = "BulkBOMFab3D-Intent"

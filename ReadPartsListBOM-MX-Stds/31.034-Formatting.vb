@@ -226,7 +226,7 @@ Err_HighlightLine:
                 End With
             End If
 
-            With .Range("A" & LineNo & ":W" & LineNo)                           'With .Range("A" & LineNo & ":L" & LineNo)      '-------DJL-10-11-2023
+            With .Range("A" & LineNo & ":W" & LineNo)
                 .HorizontalAlignment = XlHAlign.xlHAlignCenter
                 .VerticalAlignment = XlVAlign.xlVAlignCenter
                 .Font.Name = "Arial"
@@ -389,7 +389,7 @@ Err_FormatLine:
             .Rows(LineNo & ":" & LineNo).Insert()
             .Rows(LineNo & ":" & LineNo).RowHeight = 18
 
-            With .Range("A" & LineNo & ":W" & LineNo)                           'With .Range("A" & LineNo & ":L" & LineNo)      '-------DJL-10-11-2023
+            With .Range("A" & LineNo & ":W" & LineNo)
                 .HorizontalAlignment = XlHAlign.xlHAlignCenter
                 .VerticalAlignment = XlVAlign.xlVAlignCenter
                 .Font.Name = "Arial"

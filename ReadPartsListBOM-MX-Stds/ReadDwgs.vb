@@ -22,7 +22,6 @@ Public Structure GenInfo3233
     Public Shared STDsList(20, 1)           'Standards found On drawings
     Public Shared StdsFnd2(2, 1)
     Public Shared StdsBOMList(20, 1)        'All Stds for MX-Standards
-    'Public Shared CollectSTDsList(20, 1)
 
     Public Shared FileDir As String
     Public Shared JobDir As String
@@ -53,7 +52,6 @@ End Structure
 Public Class ReadDwgs                      'BulkBOMFab3D
     Inherits System.Windows.Forms.Form
     Public Shared AcadApp As AutoCAD.AcadApplication
-    'Public Shared ExcelApp As Excel.Application
     Dim ErrMsg, ErrNo, ErrSource, ErrDll, PriPrg, PrgName As String
     Dim ErrException As System.Exception
     Dim ErrLastLineX As Integer
@@ -73,19 +71,13 @@ Public Class ReadDwgs                      'BulkBOMFab3D
     Public OldStdDwg As String
     Public NewStdDwg As String
     Public Count As Integer
-    Public BOMList(21, 1) As Object                   '-------DJL-06-10-2025   'Moved below Just collect per drawing.          'Added 21 for indexing-------DJL-06-06-2025
-    Public BOMListNew(21, 1) As Object                          '-------DJL-06-09-2025
-    Public BOMListSort As New ArrayList                         '(1, 1) As ArrayList
-    'Public BOMListColl(20, 1) As Object
-    'Public BOMListArray(20, 1) As Array
-    'Public BOMListTemp(20, 1) As Object                         'Tried Array-------DJL
+    Public BOMList(21, 1) As Object
+    Public BOMListNew(21, 1) As Object
+    Public BOMListSort As New ArrayList
     Public NewBOMList(20, 1) As String
-    'Public FindStdList(20, 1) As String
-    'Public FoundStdList(20, 1) As String
     Public ShpMkList() As String
     Public STDsList(20, 1)              'As String
     Public StdsBOMList(20, 1)
-    'Public CollectSTDsList(13, 1)
 
     Public AcadDoc As AutoCAD.AcadDocument
     Public RevNo As String
@@ -170,7 +162,7 @@ Err_AddAllButton_Click:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -266,7 +258,7 @@ Err_AddButton_Click:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -325,7 +317,7 @@ Err_AddButton_Click:
             DwgPos = 0
             GetDwg = SelectList.SelectedItems.Item(i).ToString
             Me.DwgList.Items.Add(GetDwg)
-            CntDwgs = (CntDwgs + 1)                         '-------DJL-08-08-2025      'Added
+            CntDwgs = (CntDwgs + 1)
             DwgListArray(CntDwgs) = SelectList.SelectedItems.Item(i)  'So create Array and delete after complete.
         Next i
 
@@ -335,7 +327,7 @@ Err_AddButton_Click:
             BtnStart2.Enabled = False
         End If
 
-        For i = 0 To (CntDwgs)                            '-------DJL-08-08-2025      'For i = 0 To (CountDwgs - 1)
+        For i = 0 To (CntDwgs)
             SelectList.Items.Remove(DwgListArray(i))
         Next
 
@@ -366,7 +358,7 @@ Err_RemoveButton_Click:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -433,7 +425,7 @@ Err_UserForm_Initialize:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -501,7 +493,7 @@ Err_BOM_Menu_Load:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -712,19 +704,16 @@ Err_BOM_Menu_Load:
 
                 CntTitleBlks = 0
                 Temparray = BlockSel.Item(CntTitleBlks).GetAttributes
-
-                '                For f = 1 To CntBlks
-                'FindNextBlk:
                 PrgName = "StartButton_Click-Part7"
 
 FindAttributes:
-                    For t = 0 To UBound(Temparray)
-                        Test = Temparray(t).TagString                          '-------Requisition Number not on BOM.
-                        Test1 = Temparray(t).TextString
+                For t = 0 To UBound(Temparray)
+                    Test = Temparray(t).TagString                          '-------Requisition Number not on BOM.
+                    Test1 = Temparray(t).TextString
 
-                        Select Case Temparray(t).TagString
-                            Case "DN"
-                                CurrentDwgNo = Temparray(t).TextString
+                    Select Case Temparray(t).TagString
+                        Case "DN"
+                            CurrentDwgNo = Temparray(t).TextString
 
                             If InStr(CurrentDwgNo, "(SH") > 0 Then          '-------New problem Job 2212-1001-HVEC has put the (sht 1 of 2) on DN tag for dwg no.
                                 ShtPos = InStr(CurrentDwgNo, "(SH")
@@ -743,23 +732,17 @@ FindAttributes:
                             End If
 
                             CurrentDwgNo = LTrim(CurrentDwgNo)
-                                CurrentDwgNo = RTrim(CurrentDwgNo)
-                                CntCollect = (CntCollect + 1)
-                            Case "TITLE"
-                                CurrentDwgNo = Temparray(t).TextString                          '-------Drawing Converted for Inventor to AutoCAD
-                                CntCollect = (CntCollect + 1)
-                            Case "DT"
+                            CurrentDwgNo = RTrim(CurrentDwgNo)
+                            CntCollect = (CntCollect + 1)
+                        Case "TITLE"
+                            CurrentDwgNo = Temparray(t).TextString                          '-------Drawing Converted for Inventor to AutoCAD
+                            CntCollect = (CntCollect + 1)
+                        Case "DT"
+                            DwgTitle1 = Temparray(t).TextString
+                        Case "DT1"
+                            If IsNothing(DwgTitle1) = True Then
                                 DwgTitle1 = Temparray(t).TextString
-                            Case "DT1"
-                                If IsNothing(DwgTitle1) = True Then
-                                    DwgTitle1 = Temparray(t).TextString
-                                End If
-                        'Case "DT2"                          '-------DJL-06-27-2025         'Not requied for BOM, or Shipping List.
-                        '    DwgTitle2 = Temparray(t).TextString
-                        'Case "DT3"                          '-------DJL-06-27-2025
-                        '    If IsNothing(DwgTitle3) = True Then
-                        '        DwgTitle3 = Temparray(t).TextString
-                        '    End If
+                            End If
                         Case "C"      '-------DJL-07-25-2025      'Added Customer so that Shipping list could be produced also.
                             If Customer = "" Then
                                 Customer = Temparray(t).TextString
@@ -780,120 +763,94 @@ FindAttributes:
                             End If
                         Case "JN"
                             FullJobNo = Temparray(t).TextString
-                                JobNoIndex = t
-                                CntCollect = (CntCollect + 1)
-                            Case "PROJECT"
-                                FullJobNo = Temparray(t).TextString
-                                JobNoIndex = t
-                                CntCollect = (CntCollect + 1)
-                            Case "PN"
-                                FullJobNo = Temparray(t).TextString
-                                JobNoIndex = t
-                                CntCollect = (CntCollect + 1)
-                            Case "RN"
-                                CurrentDwgRev = Temparray(t).TextString
-                                CntCollect = (CntCollect + 1)
-                            Case "REV"
-                                CurrentDwgRev = Temparray(t).TextString
-                                CntCollect = (CntCollect + 1)
-                            Case "REVISION_NUMBER"
-                                CurrentDwgRev = Temparray(t).TextString
-                                CntCollect = (CntCollect + 1)
-                                'Case Else
-                                '    Stop
-                        End Select
+                            JobNoIndex = t
+                            CntCollect = (CntCollect + 1)
+                        Case "PROJECT"
+                            FullJobNo = Temparray(t).TextString
+                            JobNoIndex = t
+                            CntCollect = (CntCollect + 1)
+                        Case "PN"
+                            FullJobNo = Temparray(t).TextString
+                            JobNoIndex = t
+                            CntCollect = (CntCollect + 1)
+                        Case "RN"
+                            CurrentDwgRev = Temparray(t).TextString
+                            CntCollect = (CntCollect + 1)
+                        Case "REV"
+                            CurrentDwgRev = Temparray(t).TextString
+                            CntCollect = (CntCollect + 1)
+                        Case "REVISION_NUMBER"
+                            CurrentDwgRev = Temparray(t).TextString
+                            CntCollect = (CntCollect + 1)
+                    End Select
 
                     If CntCollect = 4 Then      '-------DJL-07-14-2025      'Added Customer so that Shipping list could be produced also.      'If CntCollect = 3 Then 
                         GoTo FoundAllItems
                     End If
 
                     PrgName = "StartButton_Click-Part8"
-                    Next t
-
-                    '    If UBound(Temparray, 2) = 0 And CntBlks > 1 Then            '-------DJL-07-03-2025      'Found issue were drawing has two references to a titleblock one of them has nothing in the attributes.
-                    '        CntTitleBlks = (CntTitleBlks + 1)                       'Index starts at 0 to 1 for two items.
-                    '        Temparray = BlockSel.Item(CntTitleBlks).GetAttributes
-
-                    '        GoTo FindNextBlk
-                    '    End If
-                    'Next f                          '-------DJL-07-03-2025
+                Next t
 
 FoundAllItems:
-                    If CurrentDwgNo = Nothing And CntBlks > 0 Then
-                        CntTitleBlks = (CntTitleBlks + 1)
+                If CurrentDwgNo = Nothing And CntBlks > 0 Then
+                    CntTitleBlks = (CntTitleBlks + 1)
 
-                        If CntTitleBlks <= (CntBlks - 1) Then
-                            Temparray = BlockSel.Item(CntTitleBlks).GetAttributes
-                        End If
-
-                        GoTo FindAttributes
+                    If CntTitleBlks <= (CntBlks - 1) Then
+                        Temparray = BlockSel.Item(CntTitleBlks).GetAttributes
                     End If
 
-                    PrgName = "StartButton_Click-Part9"
-                    CntCollect = Nothing
-                    GenInfo3233.FullJobNo = FullJobNo
+                    GoTo FindAttributes
+                End If
 
-                    If FirstJobNo <> FullJobNo Then
-                        If IsNothing(FirstJobNo) = True Then
-                            FirstJobNo = FullJobNo
-                            GoTo JobNoChecked
-                        End If
+                PrgName = "StartButton_Click-Part9"
+                CntCollect = Nothing
+                GenInfo3233.FullJobNo = FullJobNo
 
-                        Msg = "Drawing " & CurrentDwgNo & " has a different Job Number example " & FirstJobNo & " and " & FullJobNo & " do not match, Do you want to use Job No ? " & FirstJobNo
-                        Style = MsgBoxStyle.YesNo
-                        Title = "Job Number Issue"
-                        Response = MsgBox(Msg, Style, Title)
-
-                        If Response = 6 Then
-                            FullJobNo = FirstJobNo
-                            Temparray(JobNoIndex).TextString = FirstJobNo
-                        Else
-                            FirstJobNo = FullJobNo
-                            Temparray(JobNoIndex).TextString = FullJobNo
-                        End If
+                If FirstJobNo <> FullJobNo Then
+                    If IsNothing(FirstJobNo) = True Then
+                        FirstJobNo = FullJobNo
+                        GoTo JobNoChecked
                     End If
+
+                    Msg = "Drawing " & CurrentDwgNo & " has a different Job Number example " & FirstJobNo & " and " & FullJobNo & " do not match, Do you want to use Job No ? " & FirstJobNo
+                    Style = MsgBoxStyle.YesNo
+                    Title = "Job Number Issue"
+                    Response = MsgBox(Msg, Style, Title)
+
+                    If Response = 6 Then
+                        FullJobNo = FirstJobNo
+                        Temparray(JobNoIndex).TextString = FirstJobNo
+                    Else
+                        FirstJobNo = FullJobNo
+                        Temparray(JobNoIndex).TextString = FullJobNo
+                    End If
+                End If
 
 JobNoChecked:
-                    PrgName = "StartButton_Click-Part10"
-                    BlockSel = AcadDoc.SelectionSets.Add("BillOfMaterial")
-                    GroupCode(0) = 0
-                    BlockData(0) = "INSERT"
-                    GroupCode(1) = 2
-                    BlockData(1) = "STANDARD_BILL_OF_MATERIAL,B_BILL_OF_MATERIAL,SP_BILL_OF_MATERIAL,BILL OF MATERIAL,STANDARD_BILL_OF_MATERIAL_Erectino Double Digit,STANDARD_BILL_OF_MATERIAL Assembly,STANDARD_BILL_OF_MATERIAL Erection Single Digit"
-                    BlockSel.Select(AutoCAD.AcSelect.acSelectionSetAll, , , GroupCode, BlockData)           'Some drawings are giving BlockSel.Count = 0 RW-------DJL this is true if no BOM Blocks exist on drawing.     
+                PrgName = "StartButton_Click-Part10"
+                BlockSel = AcadDoc.SelectionSets.Add("BillOfMaterial")
+                GroupCode(0) = 0
+                BlockData(0) = "INSERT"
+                GroupCode(1) = 2
+                BlockData(1) = "STANDARD_BILL_OF_MATERIAL,B_BILL_OF_MATERIAL,SP_BILL_OF_MATERIAL,BILL OF MATERIAL,STANDARD_BILL_OF_MATERIAL_Erectino Double Digit,STANDARD_BILL_OF_MATERIAL Assembly,STANDARD_BILL_OF_MATERIAL Erection Single Digit"
+                BlockSel.Select(AutoCAD.AcSelect.acSelectionSetAll, , , GroupCode, BlockData)           'Some drawings are giving BlockSel.Count = 0 RW-------DJL this is true if no BOM Blocks exist on drawing.     
 
-                    'Did not remove the problem
-                    'BOMListSort.Add("0000")           '-------DJL 06-27-2025      'Modified record zero to = 0 was having problems resorting started @ 1
+                If BlockSel.Count <> 0 Then
+                    CntCollected = 0
 
-                    If BlockSel.Count <> 0 Then
-                        CntCollected = 0
+                    For Each BomItem In BlockSel
+                        PrgName = "StartButton_Click-Part11"
+                        CntCollected = CntCollected + 1
+                        Me.TxtBoxBOMItemsToProcess.Text = BlockSel.Count - CntCollected
+                        Me.Refresh()
+                        TempAttributes = BomItem.GetAttributes
 
-                        For Each BomItem In BlockSel
-                            PrgName = "StartButton_Click-Part11"
-                            CntCollected = CntCollected + 1
-                            Me.TxtBoxBOMItemsToProcess.Text = BlockSel.Count - CntCollected
-                            Me.Refresh()
-                            TempAttributes = BomItem.GetAttributes
-
-                            For s = 0 To UBound(TempAttributes)     'Not Required Found Job Information Previuosly 'Need info for Standards Dwg Number.
-                                Test1 = TempAttributes(s).TagString
+                        For s = 0 To UBound(TempAttributes)     'Not Required Found Job Information Previuosly 'Need info for Standards Dwg Number.
+                            Test1 = TempAttributes(s).TagString
 
                             Select Case TempAttributes(s).TagString
                                 Case "SLM"                          '-------MK"
                                     Get2DShipMk = TempAttributes(s).TextString
-
-                                    '-------Temp test to find Qty error.
-                                    'If Get2DShipMk = "E38-11" Or Get2DShipMk = "E38-03" Then          '-------DJL-07-28-2025
-                                    '    Stop
-                                    'ElseIf Get2DShipMk = "E38-04" Or Get2DShipMk = "E38-05" Then          '-------DJL-07-28-2025
-                                    '    Stop
-                                    'End If
-
-                                        'If Get2DShipMk <> "" Then          '-------DJL-07-03-2025      'Moved below at Array collection if Inv1 and Inv2 are Not Nothing.
-                                        '    GetShipStds = "Yes"
-                                        'Else
-                                        '    GetShipStds = "No"
-                                        'End If
                                 Case "SLQ"                          '-------MK"
                                     Get2DShipQty = TempAttributes(s).TextString
                                 Case "SM"                           '-------SP"
@@ -957,28 +914,9 @@ BOMInfoCollected:
                             End If
                         End If
 
-                        'Dim BOMList(21, 1) As Object        'Moved above at open each drawing                    '-------DJL-06-10-2025-REFINE IT EACH TIME IT STARTS COLLECTING
                         InsertionPT = BomItem.InsertionPoint
-                            Dimscale = BomItem.XScaleFactor
-                        'CompareX1 = 10.5 * Dimscale                         '-------DJL-07-03-2025      'Not Required.
-                        'CompareX1 = InsertionPT(0) - CompareX1
-                        'CompareX1 = CompareX1 / Dimscale
-
-                        'CompareX2 = 6 * Dimscale                         '-------DJL-07-03-2025      'Not Required.
-                        'CompareX2 = InsertionPT(0) - CompareX2
-                        'CompareX2 = CompareX2 / Dimscale
-
-                        'If CompareX1 <1 Or CompareX2 <1 Then                         '-------DJL-07-03-2025      ' Not Required.
-                        '    If CompareX1 > 0 Or CompareX2 > 0 Then
-                                        '        BOMList(16, UBound(BOMList, 2)) = CStr(1)
-                                        '    Else
-                                        '        BOMList(16, UBound(BOMList, 2)) = CStr(2)
-                                        '    End If
-                                        'Else
-                                        '    BOMList(16, UBound(BOMList, 2)) = CStr(2)
-                                        'End If
-
-                                        BOMList(1, UBound(BOMList, 2)) = CurrentDwgNo                               '-------Dwg number
+                        Dimscale = BomItem.XScaleFactor
+                        BOMList(1, UBound(BOMList, 2)) = CurrentDwgNo                               '-------Dwg number
                         BOMList(2, UBound(BOMList, 2)) = CurrentDwgRev                              '-------Rev Number
                         BOMList(3, UBound(BOMList, 2)) = Get2DShipMk
 
@@ -1018,13 +956,7 @@ BOMInfoCollected:
                             End If
                         End If
 
-                        'If GetPartNo = "" Then
-                        '    BOMList(5, UBound(BOMList, 2)) = "-"            '-------DJL-07-24-2025      'Do not do this anymore was just done as a quick fix.
-                        'Else
-
                         BOMList(5, UBound(BOMList, 2)) = GetPartNo
-                        'End If
-
                         BOMList(6, UBound(BOMList, 2)) = GetShipDesc
                         BOMList(7, UBound(BOMList, 2)) = GetDesc
 
@@ -1079,115 +1011,104 @@ UpdateMat4:
                             InsPt1 = "0" & InsPt1
                         End If
 
-                        BOMList(19, UBound(BOMList, 2)) = (InsPt0)      'Required for Shipping List.
-
-                        'BOMList(0, UBound(BOMList, 2)) = InsertionPT(0).ToString     '-------DJL-07-03-2025      'Not required.
-                        '-------DJL-07-03-2025      'Not required.
-                        'DrawingIndex = InsertionPT(1).ToString     '-------DJL-06-27-2025       'DrawingIndex = CurrentDwgNo & "-" & InsertionPT(1).ToString & "-" & InsertionPT(0).ToString
-                        'DwgIndex = DrawingIndex
-                        'BOMList(21, UBound(BOMList, 2)) = DwgIndex              'DrawingIndex
+                        BOMList(19, UBound(BOMList, 2)) = (InsPt0)
                         ReDim Preserve BOMList(21, UBound(BOMList, 2) + 1)
 
-                            '-------DJL-06-27-2025      'Still having issues on sort, Because we are looking at items per drawing we can remove some of the complexity.
-                            BOMListSort.Add(InsertionPT(1).ToString)     '-------DJL-06-27-2025       'BOMListSort.Add(DrawingIndex)  '-------DJL 06-27-2025      'Modified record zero to = 0 above
+                        '-------DJL-06-27-2025      'Still having issues on sort, Because we are looking at items per drawing we can remove some of the complexity.
+                        BOMListSort.Add(InsertionPT(1).ToString)     '-------DJL-06-27-2025       'BOMListSort.Add(DrawingIndex)  '-------DJL 06-27-2025      'Modified record zero to = 0 above
 NextBOMItem:
-                            GetPartNo = Nothing
-                            Get2DShipMk = Nothing
-                            Get2DShipQty = Nothing
-                            GetPartNo = Nothing
-                            GetQty = Nothing
-                            GetShipDesc = Nothing
-                            GetDesc = Nothing
-                            GetLen = Nothing
-                            GetNotes = Nothing
-                            GetMat = Nothing    'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
-                            GetMat2 = Nothing
-                            GetMat3 = Nothing
-                            MX2 = Nothing
-                            GetShipStds = Nothing
-                            GetNotes = Nothing
-                            GetWt = Nothing
-                        Next BomItem
-                    End If
-                    'End If
+                        GetPartNo = Nothing
+                        Get2DShipMk = Nothing
+                        Get2DShipQty = Nothing
+                        GetPartNo = Nothing
+                        GetQty = Nothing
+                        GetShipDesc = Nothing
+                        GetDesc = Nothing
+                        GetLen = Nothing
+                        GetNotes = Nothing
+                        GetMat = Nothing    'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
+                        GetMat2 = Nothing
+                        GetMat3 = Nothing
+                        MX2 = Nothing
+                        GetShipStds = Nothing
+                        GetNotes = Nothing
+                        GetWt = Nothing
+                    Next BomItem
+                End If
 
-                    PrgName = "StartButton_Click-Part12"
+                PrgName = "StartButton_Click-Part12"
 
-                    ProblemAt = "CloseDwg"
-                    CountVal = (CountVal + 1)
-                    ProgressBar1.Value = CountVal
-                    AcadDoc.Close(SaveChanges:=False)        'AcadDoc.Close()        Changed AcadDoc from Object to AcadDocument type    RW 8/17/2023
-                    ProblemAt = ""
+                ProblemAt = "CloseDwg"
+                CountVal = (CountVal + 1)
+                ProgressBar1.Value = CountVal
+                AcadDoc.Close(SaveChanges:=False)        'AcadDoc.Close()        Changed AcadDoc from Object to AcadDocument type    RW 8/17/2023
+                ProblemAt = ""
 NextDwg:
-                    GetPartNo = Nothing
-                    Get2DShipMk = Nothing
-                    Get2DShipQty = Nothing
-                    GetPartNo = Nothing
-                    GetQty = Nothing
-                    GetShipDesc = Nothing
-                    GetDesc = Nothing
-                    GetLen = Nothing
-                    GetNotes = Nothing
-                    GetMat = Nothing        'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
-                    GetMat2 = Nothing
-                    GetMat3 = Nothing
-                    GetNotes = Nothing
-                    GetWt = Nothing
+                GetPartNo = Nothing
+                Get2DShipMk = Nothing
+                Get2DShipQty = Nothing
+                GetPartNo = Nothing
+                GetQty = Nothing
+                GetShipDesc = Nothing
+                GetDesc = Nothing
+                GetLen = Nothing
+                GetNotes = Nothing
+                GetMat = Nothing        'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
+                GetMat2 = Nothing
+                GetMat3 = Nothing
+                GetNotes = Nothing
+                GetWt = Nothing
 
                 BOMListSort.Sort()          '-------DJL-07-07-2025      'Must be done Sorts from 0 to 99.000000 'Below form 99.0000000 to 0
                 BOMListSort.Reverse()   '-------DJL-06-27-2025      'For some reason this does not resort from position 0 but from 1 to 2
-                    Dim Val1, Val2 As String        '-------DJL-07-03-2025      'Dim Val1, Val2 As Single
-                    Dim Val1Dbl, Val2Dbl As Double
-                    Dim ValChg As String
+                Dim Val1, Val2 As String        '-------DJL-07-03-2025
+                Dim Val1Dbl, Val2Dbl As Double
+                Dim ValChg As String
 ChkSortAgain:                                       '-------DJL-07-28-2025  'Added
                 For v = 0 To (BOMListSort.Count - 1)
-                        Val1 = BOMListSort(v)
-                        Val1Dbl = Val1
+                    Val1 = BOMListSort(v)
+                    Val1Dbl = Val1
 
-                        If v = (BOMListSort.Count - 1) Then
-                            GoTo SortNoDone
-                        End If
-
-                        Val2 = BOMListSort(v + 1)
-                        Val2Dbl = Val2
-                        ValChg = 0
-
-                        If Val1Dbl < Val2Dbl Then             'If Val1 < Val2 Then            'If BOMListSort(v) < BOMListSort(v + 1) Then    'If BOMListSort(0) < BOMListSort(1) Then
-                            ValChg = BOMListSort(v)                 'BOMListSortChg = BOMListSort(v)    'BOMListSortChg = BOMListSort(0)
-                            BOMListSort(v) = BOMListSort(v + 1)     'BOMListSort(0) = BOMListSort(1)
-                        BOMListSort(v + 1) = ValChg             'BOMListSort(v + 1) = BOMListSortChg    'BOMListSort(1) = BOMListSortChg
-                        ChkSort = "Found"                   '-------DJL-07-28-2025  'Added
+                    If v = (BOMListSort.Count - 1) Then
+                        GoTo SortNoDone
                     End If
-                    Next v
+
+                    Val2 = BOMListSort(v + 1)
+                    Val2Dbl = Val2
+                    ValChg = 0
+
+                    If Val1Dbl < Val2Dbl Then
+                        ValChg = BOMListSort(v)
+                        BOMListSort(v) = BOMListSort(v + 1)
+                        BOMListSort(v + 1) = ValChg
+                        ChkSort = "Found"
+                    End If
+                Next v
 
 SortNoDone:
-                If ChkSort = "Found" Then                   '-------DJL-07-28-2025  'Added
+                If ChkSort = "Found" Then
                     ChkSort = ""
                     GoTo ChkSortAgain
                 End If
                 y = 1
 
-                    For x = 0 To (BOMListSort.Count)                           'For x = 0 To (BOMListSort.Count - 1)                                  '-------DJL-06-09-2025
+                For x = 0 To (BOMListSort.Count)
 FindNextItem:
                     If BOMListSort.Count <> 0 Then
                         FindIndex = BOMListSort(0)
                     Else
-                        'If z < CntDwgs Then                         '-------DJL-07-03-2025      'If all of the drawings have not been found.
-                        '    GoTo Nextz
-                        'Else
                         GoTo SortFinished
-                        'End If
                     End If
 
-                        x = y
-                        CntBOMList = UBound(BOMList, 2)
+                    x = y
+                    CntBOMList = UBound(BOMList, 2)
 
-                        If y > CntBOMList And BOMListSort.Count > 0 Then        '--------DJL-07-03-2025     'Need to reset y when not all of the parts where found.
-                            x = 1
-                        End If
+                    If y > CntBOMList And BOMListSort.Count > 0 Then
+                        x = 1
+                    End If
 
-                        For y = x To UBound(BOMList, 2)                     'For y = 1 To UBound(BOMList)     '-------DJL-06-09-2025
-                            FoundIndex = BOMList(17, (CntBOMList - y))      '-----Look at sort  '-------DJL-07-02-2025      'FoundIndex = BOMList(21, (CntBOMList - y))
+                    For y = x To UBound(BOMList, 2)
+                        FoundIndex = BOMList(17, (CntBOMList - y))
 
                         If FindIndex = FoundIndex Then                                                      '-------DJL-06-09-2025
                             BOMListNew(1, UBound(BOMListNew, 2)) = BOMList(1, (CntBOMList - y))     'CurrentDwgNo '-------DJL-06-27-2025      'BOMListNew(1, UBound(BOMListNew, 2)) = BOMList(1, y)
@@ -1221,9 +1142,6 @@ FindNextItem:
                                 RowNoPlus4 = (UBound(BOMListNew, 2) + 4)
                                 STDsList(20, UBound(STDsList, 2)) = RowNoPlus4                          '-------DJL-07-07-2025      'Record number or row number
                                 STDsList(20, UBound(STDsList, 2)) = UBound(BOMListNew, 2)               '-------DJL-07-07-2025      'Record number or row number
-
-                                'STDsList(1, UBound(STDsList, 2)) = BOMList(9, (CntBOMList - y))        '-------DJL-06-09-2025 collect standards
-                                'STDsList(2, UBound(STDsList, 2)) = BOMList(10, (CntBOMList - y))
                                 ReDim Preserve STDsList(20, UBound(STDsList, 2) + 1)                    '-------DJL-07-07-2025
                             End If
 
@@ -1252,29 +1170,20 @@ FindNextItem:
                         End If
                     Next y
 Nextx:
-                        If BOMListSort.Count > 0 Then
-                            GoTo FindNextItem
-                        End If
-                    Next x
+                    If BOMListSort.Count > 0 Then
+                        GoTo FindNextItem
+                    End If
+                Next x
 Nextz:
-                'If z < CntDwgs Then
-                '    z = (z + 1)
-                '    GoTo FindNextDwg
-                'End If
 SortFinished:
-            Next z                           'Next DwgItem
+            Next z
 
-                PrgName = "StartButton_Click-Part13"
-
-            'SortFinished:                          '-------DJL-07-03-2025      'moved above
+            PrgName = "StartButton_Click-Part13"
             WriteToExcel(BOMListNew)     '-------DJL-06-09-2025          'Above removes most of this.
-
-            '-------DJL-07-07-2025     'Below is fixed above as the Array is collected.
-            'UpdateShpMarksArray(BOMListNew)     '-------DJL-06-10-2025     'UpdateShpMarksArray(BOMList)    '-------DJL-06-09-2025
             PrgName = "StartButton_Click-Part14"
         End If
 
-        WorkShtName = "Stds BOM"         'Move to Shipping List    '-------DJL-06-06-2025
+        WorkShtName = "Stds BOM"
         Workbooks = ExcelApp.Workbooks
         StdsWrkSht = Workbooks.Application.Worksheets(WorkShtName)
         StdsWrkSht.Activate()
@@ -1304,7 +1213,7 @@ SortFinished:
             Else
                 With StdsWrkSht
                     .Rows(RowNo & ":" & RowNo).Select()
-                    .Rows(RowNo & ":" & RowNo).Insert()             '-------DJL-07-07-2025
+                    .Rows(RowNo & ":" & RowNo).Insert()
                     LineNo = RowNo
                 End With
             End If
@@ -1316,22 +1225,22 @@ SortFinished:
                 .Range("C" & RowNo).Value = STDsList(3, i)      'Ship Mk
                 .Range("E" & RowNo).Value = STDsList(4, i)      'Qty
                 .Range("D" & RowNo).Value = STDsList(5, i)      'Part No
-                .Range("F" & RowNo).Value = STDsList(6, i)      'Desc                      '-------DJL-07-07-2025      '.Range("I" & RowNo).Value = STDsList(6, i)
+                .Range("F" & RowNo).Value = STDsList(6, i)      'Desc
                 '.Range("F" & RowNo).Value = STDsList(7, i)      'Desc
                 '.Range("H" & RowNo).Value = STDsList(8, i)     'Not required just "Yes" for when Standards is found.
                 .Range("G" & RowNo).Value = STDsList(9, i)          'Std Part Number
                 .Range("H" & RowNo).Value = STDsList(10, i)         'Standard number MX0104A
-                .Range("U" & RowNo).Value = STDsList(10, i)         'In Order to update all standards found on BOM      'DJL-12-29-2023
+                .Range("U" & RowNo).Value = STDsList(10, i)         'In Order to update all standards found on BOM
 
                 .Range("I" & RowNo).Value = STDsList(11, i)         'Material
                 .Range("J" & RowNo).Value = STDsList(14, i)         'Weight
-                .Range("M" & RowNo).Value = STDsList(1, i)          'Dwg No     '-------DJL-07-07-2025        STDsList(15, i)
-                '.Range("N" & RowNo).Value = STDsList(16, i)        'Blank      '-------DJL-07-07-2025
-                .Range("O" & RowNo).Value = STDsList(19, i)         'InsertionPt(0)    '-------DJL-07-07-2025     '.Range("O" & RowNo).Value = STDsList(0, i)
-                .Range("P" & RowNo).Value = STDsList(17, i)         'InsertionPt(1)     '-------DJL-07-07-2025
-                '.Range("X" & RowNo).Value = STDsList(18, i)        'Blank      '-------DJL-07-07-2025
-                '.Range("Y" & RowNo).Value = STDsList(19, i)        'Nothing    '-------DJL-07-07-2025
-                .Range("AA" & RowNo).Value = STDsList(20, i)         'Record no or Row No        '-------DJL-07-07-2025     '.Range("Z" & RowNo).Value = STDsList(20, i) 
+                .Range("M" & RowNo).Value = STDsList(1, i)          'Dwg No
+                '.Range("N" & RowNo).Value = STDsList(16, i)        'Blank
+                .Range("O" & RowNo).Value = STDsList(19, i)         'InsertionPt(0)
+                .Range("P" & RowNo).Value = STDsList(17, i)         'InsertionPt(1)
+                '.Range("X" & RowNo).Value = STDsList(18, i)        'Blank
+                '.Range("Y" & RowNo).Value = STDsList(19, i)        'Nothing
+                .Range("AA" & RowNo).Value = STDsList(20, i)         'Record no or Row No
             End With
             ProgressBar1.Value = i
         Next i
@@ -1370,19 +1279,19 @@ SortFinished:
         PrgName = "StartButton_Click-Part17"
         '----------Resort to record order number descending
 
-        With StdsWrkSht
-            With .Range("A4:Z" & LineNo3)
-                .Sort(Key1:= .Range("Z5"), Order1:=XlSortOrder.xlDescending, Header:=XlYesNoGuess.xlYes, OrderCustom:=1, MatchCase:=False, Orientation:=XlSortOrientation.xlSortColumns)
+        With StdsWrkSht                    'DJL-03-27-2026     'Z has nothing in ths column maybe it should be AA?
+            With .Range("A4:AA" & LineNo3)                    'DJL-03-27-2026     'With .Range("A4:Z" & LineNo3)
+                .Sort(Key1:= .Range("AA5"), Order1:=XlSortOrder.xlDescending, Header:=XlYesNoGuess.xlYes, OrderCustom:=1, MatchCase:=False, Orientation:=XlSortOrientation.xlSortColumns)            '-------DJL-03-27-2026         '.Sort(Key1:= .Range("Z5"), Order1:=XlSortOrder.xlDescending, Header:=XlYesNoGuess.xlYes, OrderCustom:=1, MatchCase:=False, Orientation:=XlSortOrientation.xlSortColumns)
             End With
         End With
 
         Dim StdsFnd2(2, 1)
 
         With StdsWrkSht
-            For d = (1 + 4) To LineNo3                  'For d = (1 + 5) To LineNo3
+            For d = (1 + 4) To LineNo3
                 StdsFnd2(0, UBound(StdsFnd2, 2)) = .Range("G" & d).Value
-                StdsFnd2(1, UBound(StdsFnd2, 2)) = .Range("U" & d).Value                    'StdsFnd2(1, UBound(StdsFnd2, 2)) = .Range("H" & d).Value
-                StdsFnd2(2, UBound(StdsFnd2, 2)) = .Range("Z" & d).Value
+                StdsFnd2(1, UBound(StdsFnd2, 2)) = .Range("U" & d).Value
+                StdsFnd2(2, UBound(StdsFnd2, 2)) = .Range("AA" & d).Value
                 ReDim Preserve StdsFnd2(2, UBound(StdsFnd2, 2) + 1)
             Next d
         End With
@@ -1397,11 +1306,10 @@ SortFinished:
 
         PrgName = "StartButton_Click-Part18"
 
-        For l = 1 To (UBound(StdsFnd, 2) - 1)                            'For l = 1 To LineNo3
-            'With StdsWrkSht
-            LookForStd = StdsFnd(0, l)            '.Range("H" & (l + 4)).Value            'LookForStd = .Range("N" & (l + 4)).Value
+        For l = 1 To (UBound(StdsFnd, 2) - 1)
+            LookForStd = StdsFnd(0, l)
 
-            If LookForStd = "" Or LookForStd = Nothing Or LookForStd = " " Then             '-------DJL-08-08-2025      'If LookForStd = "" Or LookForStd = Nothing Then
+            If LookForStd = "" Or LookForStd = Nothing Or LookForStd = " " Then
                 GoTo Nextl
             End If
 
@@ -1421,7 +1329,12 @@ SortFinished:
                         If Dir(PathBox.Text & FullJobNo & ".-" & LookForStd & Dwg) <> "" Then
                             DwgItem = PathBox.Text & FullJobNo & ".-" & LookForStd & Dwg
                         Else
-                            Me.DwgsNotFoundList.Items.Add(FullJobNo & "._" & LookForStd & Dwg)
+                            If Dir(PathBox.Text & FullJobNo & "*" & LookForStd & Dwg) <> "" Then            '-------DJL-03-27-2026
+                                DwgItem = Dir(PathBox.Text & FullJobNo & "*" & LookForStd & Dwg)            '-------DJL-03-30-2026
+                                DwgItem = PathBox.Text & DwgItem                                            '-------DJL-03-30-2026
+                            Else
+                                Me.DwgsNotFoundList.Items.Add(FullJobNo & "._" & LookForStd & Dwg)
+                            End If
                         End If
                     End If
                 End If
@@ -1522,13 +1435,16 @@ Continue_Dwgs:  '------------------------------Get Standard drawing information 
                         If Dir(PathBox.Text & FullJobNo & ".-" & LookForStd & Dwg) <> "" Then
                             DwgItem = PathBox.Text & FullJobNo & ".-" & LookForStd & Dwg
                         Else
-                            GoTo NextDwg2
+                            If Dir(PathBox.Text & FullJobNo & "*" & LookForStd & Dwg) <> "" Then            '-------DJL-03-27-2026
+                                DwgItem = Dir(PathBox.Text & FullJobNo & "*" & LookForStd & Dwg)            '-------DJL-03-27-2026
+                                DwgItem = PathBox.Text & DwgItem                                            '-------DJL-03-27-2026
+                            Else
+                                GoTo NextDwg2
+                            End If
                         End If
                     End If
                 End If
             End If
-
-            'End With
 
             AcadApp.Documents.Open(DwgItem)
             System.Threading.Thread.Sleep(50)
@@ -1611,8 +1527,6 @@ FoundAtts:
                     'NTest11 = TempAttributes(10).TextString                'Material2B
                     'NTest12 = TempAttributes(11).TextString                'Weight
                     ''Test = TempAttributes(12).TextString               'Only 11 Items exist for BOM Items.
-                    ''Test = TempAttributes(13).TextString
-                    ''Test = TempAttributes(14).TextString
 
                     If NTest5 = Nothing Or NTest5 = "" Then                 'New problem remove blank lines....
                         If Ntest6 = Nothing Or Ntest6 = "" Then
@@ -1724,7 +1638,6 @@ BOMInfoCollected2:
 
                     StdsBOMList(17, UBound(StdsBOMList, 2)) = InsertionPT(1)
                     StdsBOMList(18, UBound(StdsBOMList, 2)) = InsertionPT(0)
-                    'StdsBOMList(15, UBound(StdsBOMList, 2)) = CurrentDwgNo             '-------DJL-07-03-2025      'same as StdsBOMList(1
                     ReDim Preserve StdsBOMList(20, UBound(StdsBOMList, 2) + 1)
 NextBOMItem2:
                 Next BomItem
@@ -1819,7 +1732,7 @@ NextDwg2:
                 .Range("I" & RowNo).Value = StdsBOMList(11, i)          '11 will always be material even when two types of material.
                 .Range("J" & RowNo).Value = StdsBOMList(14, i)          'Weight
                 .Range("M" & RowNo).NumberFormat = "@"
-                .Range("M" & RowNo).Value = StdsBOMList(1, i)          'Standard No        '-------DJL-07-07-2025      ' .Range("M" & RowNo).Value = StdsBOMList(15, i)
+                .Range("M" & RowNo).Value = StdsBOMList(1, i)          'Standard No
                 .Range("N" & RowNo).NumberFormat = "General"
                 .Range("N" & RowNo).Value = StdsBOMList(16, i)          'one or two
                 .Range("O" & RowNo).NumberFormat = "General"
@@ -1885,7 +1798,7 @@ NextDwg2:
         LineNo2 = BOMWrkSht.Range("B4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
         PrgName = "StartButton_Click-Part30"
 
-        WriteToExcelAfterSort(STDsList)           'Write new data to Spreadsheet          '-------DJL-07-08-2025      'WriteToExcelAfterSort(BOMListNew)
+        WriteToExcelAfterSort(STDsList)           'Write new data to Spreadsheet
         PrgName = "StartButton_Click-Part31"
         AcadApp.WindowState = AutoCAD.AcWindowState.acMin
         LineNo2 = BOMWrkSht.Range("B4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
@@ -1921,8 +1834,6 @@ NextDwg2:
         End With
 
         PrgName = "StartButton_Click-Part32"
-        'OldFileNam = Me.PathBox.Text          'Not Required.     '-------DJL-08-07-2025
-        'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2024.xltm"          'Not Required.     '-------DJL-08-07-2025      '-------DJL-11-10-2024          'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2023.xltm"
         CopyBOMFile(OldFileNam, RevNo, ExcelApp)                          '-------DJL-08-08-2025         'Moved request by IT.
         ProgramFinished()
 Cancel:
@@ -2006,9 +1917,7 @@ Err_StartButton_Click:
             PrgLineNo = PrgLineNo.Replace("@", "at")
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
-
-            'PrgLineNo = st.GetFrame(3).GetFileLineNumber().ToString
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2, PrgLineNo)
 
             If ErrNo = -2145320900 And ErrMsg = "Failed to get the Document object" Then
                 If FirstDwg = "NotFound" Then
@@ -2053,7 +1962,7 @@ Err_StartButton_Click:
 
     End Sub
 
-    Function WriteToExcelAfterSort(STDsList)                         '-------DJL-07-08-2025      'Function WriteToExcelAfterSort(BOMList)
+    Function WriteToExcelAfterSort(STDsList)
         '-------Move to new function-------WritetoExcel-------DJL-10-11-2023            
         '------------------------------------------------------------------------------------------------
         '-------Creator:        Dennis J. Long
@@ -2083,108 +1992,49 @@ Err_StartButton_Click:
         FileSaveAS = PathBox.Text & "\" & GenInfo3233.FullJobNo & "BOM.xls"
         Workbooks = ExcelApp.Workbooks
 
-        WorkShtName = "BulK BOM"                            '-------DJL-07-08-2025      'WorkShtName = "BOMList"
+        WorkShtName = "BulK BOM"
         BOMWrkSht = Workbooks.Application.Worksheets(WorkShtName)
         WorkSht = Workbooks.Application.ActiveSheet
         WorkShtName = WorkSht.Name
 
-        '---------------------------------------------------------------------------------------------------------------------------------------------------
-        '-------DJL-07-08-2025      'Below is not required anymore program is sorted at the array and wrote to spread sheet before now.
-        '---------------------------------------------------------------------------------------------------------------------------------------------------
-        'With BOMWrkSht
-        '    .Range("C3").Value = GenInfo3233.FullJobNo
-        '    .Range("J3").Value = Today
-        '    .Range("G3").Value = Me.ComboBxRev.Text
-        'End With
-
-        FileToOpen = "BulK BOM"                         '-------DJL-07-08-2025      'FileToOpen = "Bulk BOM"
+        FileToOpen = "BulK BOM"
         ExcelApp.Visible = True
-        'Test = (UBound(BOMList, 2) - 1)
-        'TotalCnt = (UBound(BOMList, 2) - 1)
         ExcelApp.WindowState = XlWindowState.xlMinimized            'Minimize Excel so user can see dialogs from program
         FirstTimeThru = "Yes"
         StdsFnd2 = GenInfo3233.StdsFnd2
-        StdsBOMList = GenInfo3233.StdsBOMList            'CollectSTDsList = GenInfo3233.CollectSTDsList
+        StdsBOMList = GenInfo3233.StdsBOMList
 
-        For i = 0 To (UBound(STDsList, 2) - 1)           '-------DJL-07-08-2025      'Instead of looking at every line again in BOMList Look at StdsList?     'For i = 1 To (UBound(BOMList, 2) - 1)
-            If i = 0 Then                               '-------DJL-07-08-2025      'If i = 1 Then
-                RowNo = i + 5                           '-------DJL-07-10-2025      'RowNo = i + 4
-                'Else                                   '-------DJL-07-10-2025      'Not Required.
-                '    RowNo = RowNo + 1
+        For i = 0 To (UBound(STDsList, 2) - 1)
+            If i = 0 Then
+                RowNo = i + 5
             End If
 
             TotalCnt = (UBound(STDsList, 2) - 1)
 
-            ProgressBar1.Maximum = (UBound(STDsList, 2) - 1)     '-------DJL-07-08-2025      'ProgressBar1.Maximum = (UBound(BOMList, 2) - 1)
+            ProgressBar1.Maximum = (UBound(STDsList, 2) - 1)
 
             If RowNo = "5" And FirstTimeThru = "Yes" Then
                 BOMWrkSht.Activate()
-                '---------------------------------------------------------------------------------------------------------------------------------------------------
-                '-------DJL-07-08-2025      'Below is not required anymore program is sorted at the array and wrote to spread sheet before now.
-                '---------------------------------------------------------------------------------------------------------------------------------------------------
-                'FormatLine(RowNo, FileToOpen)
                 FirstTimeThru = "No"
-
-                'With BOMWrkSht         '-----------------------Do Not need to format everyline, Speeds up Process.
-                '    .Rows(RowNo & ":" & RowNo).Select()
-                '    .Rows(RowNo & ":" & RowNo).Insert()
-                'End With
             End If
 
-            DelItem = STDsList(1, (TotalCnt - i))                         '-------DJL-07-08-2025       'DelItem = BOMList(1, i)
-            StdPart = STDsList(9, (TotalCnt - i))                         '-------DJL-07-08-2025       'StdPart = BOMList(9, i)
-            StdDwg = STDsList(10, (TotalCnt - i))                         '-------DJL-07-08-2025       'StdDwg = BOMList(10, i)
-            StdDwgRow = STDsList(20, (TotalCnt - i))                         '-------DJL-07-08-2025       'StdDwg = BOMList(10, i)
+            DelItem = STDsList(1, (TotalCnt - i))
+            StdPart = STDsList(9, (TotalCnt - i))
+            StdDwg = STDsList(10, (TotalCnt - i))
+            StdDwgRow = STDsList(20, (TotalCnt - i))
 
             If InStr(DelItem, "Delete") = 0 Then
 
                 With BOMWrkSht
-                    '.Rows(RowNo & ":" & RowNo).Select()
-                    '.Rows(RowNo & ":" & RowNo).Insert()
-
-                    ''.Range("A" & RowNo).Value = STDsList(13, i)          'GetLen            '-------DJL-07-08-2025      13 = Nothing
-                    '.Range("B" & RowNo).Value = STDsList(1, i)           'CurrentDwgNo 
-                    '.Range("C" & RowNo).Value = STDsList(2, i)           'CurrentDwgRev 
-                    '.Range("D" & RowNo).Value = STDsList(3, i)          'Get2DShipMk
-                    '.Range("E" & RowNo).Value = STDsList(5, i)          'GetPartNo
-                    '.Range("F" & RowNo).Value = STDsList(4, i)          'GetQty
-
-                    'If STDsList(7, i) = "" Then                                              '-------DJL-07-08-0225      'Sometimes need to look at BOMList(6, i)
-                    '    .Range("G" & RowNo).Value = STDsList(6, i)          'GetDesc
-                    'Else
-                    '    .Range("G" & RowNo).Value = STDsList(7, i)          'GetDesc
-                    'End If
-
-                    '.Range("H" & RowNo).Value = STDsList(9, i)          'GetInv1
-                    '.Range("I" & RowNo).Value = STDsList(10, i)          'GetInv2
-                    '.Range("J" & RowNo).Value = STDsList(11, i)          'GetMat
-                    '.Range("K" & RowNo).Value = STDsList(14, i)          'GetWt
-                    ''.Range("N" & RowNo).Value = STDsList(15, i)          'Blank              'CurrentDwgNo
-                    '.Range("O" & RowNo).Value = STDsList(16, i)          'CStr(1) or CStr(2)
-                    ''.Range("P" & RowNo).Value = STDsList(0, i)          'Blank
-                    '.Range("Q" & RowNo).Value = STDsList(17, i)          'InsertionPT(1).ToString
-                    '.Range("R" & RowNo).Value = STDsList(8, i)          'Yes when it is a standard.
-                    ''.Range("W" & RowNo).Value = STDsList(13, i)        'Length            '-------DJL-07-08-2025      13 = Nothing
-                    '.Range("W" & RowNo).Value = STDsList(18, i)          'GetProc
-                    '.Range("Z" & RowNo).Value = STDsList(19, i)          '(InsPt0)
-                    '.Range("AA" & RowNo).Value = STDsList(0, i)
-                    '.Range("AB" & RowNo).Value = STDsList(19, i)         '(InsPt0)
-
-                    If STDsList(9, (TotalCnt - i)) <> "" Or STDsList(10, (TotalCnt - i)) <> "" Then         '-------DJL-07-08-2025        'If BOMList(9, i) <> "" Or BOMList(10, i) <> "" Then
-                        StdDwgRow = STDsList(20, (TotalCnt - i))                                      '-------DJL-07-08-2025        'RowNo = STDsList(20, (TotalCnt - i))       'RowNo = BOMList(20, i)
-                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-08-2025
+                    If STDsList(9, (TotalCnt - i)) <> "" Or STDsList(10, (TotalCnt - i)) <> "" Then
+                        StdDwgRow = STDsList(20, (TotalCnt - i))
+                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
                         LastRowCnt = (LastRowCnt + 1)
-
-                        '-------DJL-08-08-2025  'Next three lines not required.
-                        '.Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025
-                        '.Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()       '-------DJL-07-10-2025      'StdDwgRow      '.Rows(RowNo & ":" & RowNo).Insert() 
-                        'RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)    '-------DJL-07-10-2025
-
-                        GetStdPartNo = STDsList(9, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetStdPartNo = BOMList(9, i)
-                        GetMXStd = STDsList(10, (TotalCnt - i))                        '-------DJL-07-08-2025      'GetMXStd = BOMList(10, i) 
+                        GetStdPartNo = STDsList(9, (TotalCnt - i))
+                        GetMXStd = STDsList(10, (TotalCnt - i))
 
                         '-------No reason to look for something that is blank or equal to a space " ".
-                        If GetStdPartNo = " " And GetMXStd = "" Then                    '-------DJL-08-12-2025      'Found a space for the GetStdPartNo on users drawing.
+                        If GetStdPartNo = " " And GetMXStd = "" Then
                             GoTo FoundSpace
                         End If
 
@@ -2198,25 +2048,24 @@ Err_StartButton_Click:
                                     PartFound = "Yes"
 
                                     '-------New problem Trevor is wanting the Bolt, Nut, and Gasket information on the standards.
-                                    If STDsList(7, (TotalCnt - i)) = "" Then                  '-------DJL-07-08-0225      'If BOMList(7, i) = "" Then       'Sometimes need to look at BOMList(6, i)        'GetDesc = BOMList(7, i)
-                                        GetDesc = STDsList(6, (TotalCnt - i))          'GetDesc       '-------DJL-07-08-0225      'GetDesc = BOMList(6, i)
+                                    If STDsList(7, (TotalCnt - i)) = "" Then
+                                        GetDesc = STDsList(6, (TotalCnt - i))          'GetDesc
                                     Else
-                                        GetDesc = STDsList(7, (TotalCnt - i))          'GetDesc       '-------DJL-07-08-0225      'GetDesc = BOMList(7, i)
+                                        GetDesc = STDsList(7, (TotalCnt - i))          'GetDesc
                                     End If
 
-                                    GetPartNo = STDsList(5, (TotalCnt - i))          'GetPartNo       '-------DJL-07-08-0225      'GetPartNo = BOMList(5, i)
+                                    GetPartNo = STDsList(5, (TotalCnt - i))          'GetPartNo
 
                                     GetPrevPartNo = StdsBOMList(5, (m - 1))         'GetPartNo
                                     GetStdDesc = StdsBOMList(7, m)                  'GetDesc
                                     FoundStdQty = StdsBOMList(4, m)                 'GetQty
 
                                     If InStr(GetDesc, "BOLT") > 0 Then
-                                        'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
+                                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
                                         LastRowCnt = (LastRowCnt + 1)
-                                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-11-2025
+                                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
                                         .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                         .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
@@ -2228,17 +2077,15 @@ Err_StartButton_Click:
                                         .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
                                         .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
                                         .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
-                                        ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
+                                        ItemsAdded = (ItemsAdded + 1)
                                         GoTo Nextm
-                                        'End If
                                     Else
                                         If InStr(GetDesc, "NUTS") > 0 Then
-                                            'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                            LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
+                                            LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
                                             LastRowCnt = (LastRowCnt + 1)
-                                            .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                            .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                            RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-10-2025
+                                            .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                            .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                            RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
                                             .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                             .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
@@ -2250,17 +2097,15 @@ Err_StartButton_Click:
                                             .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
                                             .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
                                             .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
-                                            ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
+                                            ItemsAdded = (ItemsAdded + 1)
                                             GoTo Nextm
-                                            'End If
                                         Else
                                             If InStr(GetDesc, "GASKET") > 0 Then
-                                                'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                                LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
+                                                LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
                                                 LastRowCnt = (LastRowCnt + 1)
-                                                .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                                .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                                RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-10-2025
+                                                .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                                .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                                RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
                                                 .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                                 .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
@@ -2272,9 +2117,8 @@ Err_StartButton_Click:
                                                 .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
                                                 .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
                                                 .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
-                                                ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
+                                                ItemsAdded = (ItemsAdded + 1)
                                                 GoTo Nextm
-                                                'End If
                                             End If
                                         End If
                                     End If
@@ -2282,30 +2126,47 @@ Err_StartButton_Click:
 
                                 Else
                                     If PartFound = "Yes" Then
-                                        'If RowNo = 5 Then                          'No do not do this
-                                        'RowNo = (StdDwgRow + 4)        '-------DJL-07-10-2025       '? is this causing problems?
-                                        'End If
-
                                         If FoundStdPartNo = "" And FoundMXStd = "" Then         'There are times when parts only have one reference, and there are times when many parts are part of an assembly or Standard.
-                                                If FoundStdQty <> "" Then
-                                                'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
+                                            If FoundStdQty <> "" Then
                                                 LookStdPartNo = .Range("B" & RowNo).Value
-                                                    LookStdDesc = .Range("G" & RowNo).Value
+                                                LookStdDesc = .Range("G" & RowNo).Value
 
-                                                    If LookStdPartNo <> "" And LookStdDesc <> "" Then        '-------DJL-07-10-2025
-                                                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
-                                                        LastRowCnt = (LastRowCnt + 1)
-                                                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-
-                                                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                                    'ItemsAdded = (ItemsAdded + 1)         'Only after Item is added below.   '-------DJL-07-10-2025
-                                                    'RowNo = (RowNo + 1)
-                                                    RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)                         '-------DJL-07-10-2025
+                                                If LookStdPartNo <> "" And LookStdDesc <> "" Then
+                                                    LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
+                                                    LastRowCnt = (LastRowCnt + 1)
+                                                    .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                                    .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                                    RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
                                                 End If
 
-                                                    If RowNo < (StdDwgRow + 4 + 1 + ItemsAdded) Then        '-------DJL-07-10-2025
-                                                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
-                                                    End If
+                                                If RowNo < (StdDwgRow + 4 + 1 + ItemsAdded) Then
+                                                    RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
+                                                End If
+
+                                                .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
+                                                .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
+                                                .Range("D" & RowNo).Value = StdsBOMList(3, m) 'ColumnC    'Ship No.
+                                                .Range("F" & RowNo).Value = StdsBOMList(4, m) 'ColumnD    'Qty 
+                                                .Range("E" & RowNo).Value = StdsBOMList(5, m) 'ColumnE    'Part No.
+                                                .Range("G" & RowNo).Value = StdsBOMList(7, m) 'ColumnH   'Desc 
+                                                .Range("H" & RowNo).Value = StdsBOMList(9, m) 'ColumnL    'Std No. 
+                                                .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
+                                                .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
+                                                .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight
+                                                ItemsAdded = (ItemsAdded + 1)
+                                            End If
+                                        Else
+                                            GetDesc = StdsBOMList(7, m)
+                                            GetPartNo = StdsBOMList(5, m)
+                                            GetPrevPartNo = StdsBOMList(5, (m - 1))
+
+                                            If InStr(GetDesc, "BOLT") > 0 And GetPartNo > GetPrevPartNo Then
+                                                If FoundStdQty <> "" Then
+                                                    LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
+                                                    LastRowCnt = (LastRowCnt + 1)
+                                                    .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                                    .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                                    RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
                                                     .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                                     .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
@@ -2316,24 +2177,20 @@ Err_StartButton_Click:
                                                     .Range("H" & RowNo).Value = StdsBOMList(9, m) 'ColumnL    'Std No. 
                                                     .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
                                                     .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
-                                                    .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight
-                                                    ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
+                                                    .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
+                                                    ItemsAdded = (ItemsAdded + 1)
+                                                    GoTo Nextm
                                                 End If
                                             Else
-                                                GetDesc = StdsBOMList(7, m)
-                                                GetPartNo = StdsBOMList(5, m)
-                                                GetPrevPartNo = StdsBOMList(5, (m - 1))
-
-                                                If InStr(GetDesc, "BOLT") > 0 And GetPartNo > GetPrevPartNo Then
+                                                If InStr(GetDesc, "NUTS") > 0 And GetPartNo > GetPrevPartNo Then
                                                     If FoundStdQty <> "" Then
-                                                    'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                                    LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
-                                                    LastRowCnt = (LastRowCnt + 1)
-                                                    .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                                    .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                                    RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-10-2025
+                                                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
+                                                        LastRowCnt = (LastRowCnt + 1)
+                                                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
-                                                    .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
+                                                        .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                                         .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
                                                         .Range("D" & RowNo).Value = StdsBOMList(3, m) 'ColumnC    'Ship No.
                                                         .Range("F" & RowNo).Value = StdsBOMList(4, m) 'ColumnD    'Qty 
@@ -2343,20 +2200,19 @@ Err_StartButton_Click:
                                                         .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
                                                         .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
                                                         .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
-                                                        ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
+                                                        ItemsAdded = (ItemsAdded + 1)
                                                         GoTo Nextm
                                                     End If
                                                 Else
-                                                    If InStr(GetDesc, "NUTS") > 0 And GetPartNo > GetPrevPartNo Then
+                                                    If InStr(GetDesc, "GASKET") > 0 And GetPartNo > GetPrevPartNo Then
                                                         If FoundStdQty <> "" Then
-                                                        'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                                        LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
-                                                        LastRowCnt = (LastRowCnt + 1)
-                                                        .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                                        .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                                        RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-10-2025
+                                                            LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
+                                                            LastRowCnt = (LastRowCnt + 1)
+                                                            .Rows(LastRowCnt & ":" & LastRowCnt).Select()
+                                                            .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()
+                                                            RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)
 
-                                                        .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
+                                                            .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
                                                             .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
                                                             .Range("D" & RowNo).Value = StdsBOMList(3, m) 'ColumnC    'Ship No.
                                                             .Range("F" & RowNo).Value = StdsBOMList(4, m) 'ColumnD    'Qty 
@@ -2369,46 +2225,23 @@ Err_StartButton_Click:
                                                             ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
                                                             GoTo Nextm
                                                         End If
-                                                    Else
-                                                        If InStr(GetDesc, "GASKET") > 0 And GetPartNo > GetPrevPartNo Then
-                                                            If FoundStdQty <> "" Then
-                                                            'RowNo = (RowNo + 1)                         '-------DJL-07-10-2025
-                                                            LastRowCnt = BOMWrkSht.Range("A4000").End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row         '-------DJL-07-10-2025
-                                                            LastRowCnt = (LastRowCnt + 1)
-                                                            .Rows(LastRowCnt & ":" & LastRowCnt).Select()       '-------DJL-07-08-2025      '.Rows(RowNo & ":" & RowNo).Select()
-                                                            .Rows((StdDwgRow + 4 + 1 + ItemsAdded) & ":" & (StdDwgRow + 4 + 1 + ItemsAdded)).Insert()     '-------DJL-07-10-2025      '.Rows(RowNo & ":" & RowNo).Insert()
-                                                            RowNo = (StdDwgRow + 4 + 1 + ItemsAdded)        'RowNo = (StdDwgRow + 4 + 1)        '-------DJL-07-10-2025
-
-                                                            .Range("B" & RowNo).Value = StdsBOMList(1, m) 'ColumnA    'Dwg No.
-                                                                .Range("C" & RowNo).Value = StdsBOMList(2, m) 'ColumnB    'Rev No.
-                                                                .Range("D" & RowNo).Value = StdsBOMList(3, m) 'ColumnC    'Ship No.
-                                                                .Range("F" & RowNo).Value = StdsBOMList(4, m) 'ColumnD    'Qty 
-                                                                .Range("E" & RowNo).Value = StdsBOMList(5, m) 'ColumnE    'Part No.
-                                                                .Range("G" & RowNo).Value = StdsBOMList(7, m) 'ColumnH   'Desc 
-                                                                .Range("H" & RowNo).Value = StdsBOMList(9, m) 'ColumnL    'Std No. 
-                                                                .Range("I" & RowNo).Value = StdsBOMList(10, m) 'ColumnK    'Inv No.
-                                                                .Range("J" & RowNo).Value = StdsBOMList(11, m) 'ColumnM    'Material                                   
-                                                                .Range("K" & RowNo).Value = StdsBOMList(14, m) 'ColumnN    'Weight    
-                                                                ItemsAdded = (ItemsAdded + 1)                           '-------DJL-07-10-2025
-                                                                GoTo Nextm
-                                                            End If
-                                                        End If
                                                     End If
                                                 End If
+                                            End If
 
-                                                If GetStdPartNo <> FoundStdPartNo Then           'If GetStdPartNo <> FoundStdPartNo And GetMXStd <> FoundMXStd Then
-                                                    GoTo LastItemFound                          'It is possible to have additional parts on same Standard.
-                                                End If
+                                            If GetStdPartNo <> FoundStdPartNo Then           'If GetStdPartNo <> FoundStdPartNo And GetMXStd <> FoundMXStd Then
+                                                GoTo LastItemFound                          'It is possible to have additional parts on same Standard.
                                             End If
                                         End If
                                     End If
+                                End If
 
 Nextm:
                                 If m = (UBound(StdsBOMList, 2) - 1) Then
-                                    LookStdPartNo = .Range("B" & (StdDwgRow + 4 + 1)).Value        '-------DJL-07-10-2025
+                                    LookStdPartNo = .Range("B" & (StdDwgRow + 4 + 1)).Value
                                     LookStdDesc = .Range("G" & (StdDwgRow + 4 + 1)).Value
 
-                                    If LookStdPartNo = "" And LookStdDesc = "" Then        '-------DJL-07-10-2025
+                                    If LookStdPartNo = "" And LookStdDesc = "" Then
                                         .Rows((StdDwgRow + 4 + 1) & ":" & (StdDwgRow + 4 + 1)).Delete()
                                     End If
 
@@ -2434,6 +2267,10 @@ FoundSpace:
             End If
 
 LastItemFound:
+            'If PartFound = "No" Then
+            '-------DJL-03-27-2026      'May need to look at this Standard had reference to UB10/P MX0502A----UBOLT 3/4"
+            'End If
+
             PartFound = "No"
             ProgressBar1.Value = i
             ItemsAdded = 0
@@ -2450,7 +2287,7 @@ LastItemFound:
         End If
 
         k = 1
-        ProgressBar1.Maximum = UBound(STDsList, 2)           '-------DJL-07-08-2025      'ProgressBar1.Maximum = UBound(BOMList, 2)
+        ProgressBar1.Maximum = UBound(STDsList, 2)
 Err_WriteToExcelAfterSort:
         ErrNo = Err.Number
 
@@ -2493,7 +2330,6 @@ Err_WriteToExcelAfterSort:
             End If
 
             If ErrNo = -2145320924 And InStr(ErrMsg, "is not found.") < 0 Then
-                'DwgItem = VarSelArray(z)
                 Resume
             End If
 
@@ -2526,7 +2362,7 @@ Err_WriteToExcelAfterSort:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2, PrgLineNo)
 
             If ErrNo = -2145320900 And ErrMsg = "Failed to get the Document object" Then
                 If FirstDwg = "NotFound" Then
@@ -2582,11 +2418,11 @@ Err_WriteToExcelAfterSort:
         '-------                to all parts.
         '-------                
         '------------------------------------------------------------------------------------------------
-        Dim i, j, jA, GetNewjA, SeeNotePos, SeeDwgPos, SeeDwg2Pos, OldQtyInt, NewCount, NewChkPos, NewBOMPos, FoundSpace, FoundPart As Integer   ', ChkPos, ExceptPos, CntExcept, RevPos, ExtPos As Integer
+        Dim i, j, jA, GetNewjA, SeeNotePos, SeeDwgPos, SeeDwg2Pos, OldQtyInt, NewCount, NewChkPos, NewBOMPos, FoundSpace, FoundPart As Integer
         Dim TotaljA, Totalj, Testi, StartCnt, StartjA, Startj, Note2Pos, NewSeeDwgPos, NewSeeNotePos, NewQtyInt, NewNote2Pos, HoldCnt, FoundInch As Integer
         Dim FoundFoot, CntTest, CountVal, CntOldStdItems, CntNewBulkBOM, ChkPos As Integer
         Dim NewDwg, NewPcMk, NewQty, NewDesc, NewDesc2, NewDesc3, NewInv, NewMatl, NewProd, GetRecNo, LookForStd, LineNo, LineNo2, LineNo4 As String
-        Dim NTest, NTest2, NewStd, NewShpMk, NewRev, NewReq, FoundItem, DescFixed, CompDesc As String ', NTest1, NTest3, Ntest4, NTest5, Ntest6, NTest7, NTest8, NTest9, NTest10 As String
+        Dim NTest, NTest2, NewStd, NewShpMk, NewRev, NewReq, FoundItem, DescFixed, CompDesc As String
         Dim OTest, OTest1, OTest2, OldRecNo, OldWht, OldQty, OldInv, OldDesc, OldDesc2, OldDesc3, NewWht, FirstPart As String
         Dim SecondPart, SearchNote, SearchNote2, SearchSeeNote, SearchDwg, SearchDwg2, pattern, OPds, NPds As String
         Dim BOMSTDsSht As Worksheet
@@ -2643,9 +2479,9 @@ RptGetData: Testi = (i)
             OldBOM = Nothing
             FindSTD = Nothing
 
-            NewBOM = GenInfo3233.BOMList           'Comparison31_142.InputType3.ReadBulkBOM(NewBOM, NewBulkBOM)        'Already Done
-            FindSTD = GenInfo3233.STDsList          'Comparison31_142.InputType3.ReadFindSTDs(FindSTD, FindStdsBOM)     'Already Done
-            OldBOM = GenInfo3233.StdsBOMList        'Comparison31_142.InputType3.ReadBOM(OldBOM, OldStdItems)     'Already Done
+            NewBOM = GenInfo3233.BOMList
+            FindSTD = GenInfo3233.STDsList
+            OldBOM = GenInfo3233.StdsBOMList
 
             OldDesc = ""
             OldInv = ""
@@ -2685,24 +2521,24 @@ GetDataNew:
             End If
 
             For jA = GetNewjA To UBound(FindSTD, 2)
-                NewStdDwg = FindSTD(10, jA)          'NewStdDwg = FindSTD(8, jA)
+                NewStdDwg = FindSTD(10, jA)
 
                 If Mid(NewStdDwg, 1, 2) = "MX" Or Mid(NewStdDwg, 1, 2) = "CH" Then
                     'NTest1 = FindSTD(0, jA)                    '?X Position
                     'NTest1 = FindSTD(1, jA)               'A   'Dwg
                     'NTest2 = FindSTD(2, jA)               'B   'Rev
                     'NTest2 = FindSTD(3, jA)               'D   'Piece Mark
-                    NewQty = FindSTD(4, jA)                'E   'Qty               'NewQty = FindSTD(5, jA) 
+                    NewQty = FindSTD(4, jA)                'E   'Qty
                     'NTest3 = FindSTD(5, jA)               'C   'Ship Mark
                     'NTest3 = FindSTD(6, jA)               '
-                    NewDesc = FindSTD(7, jA)               'F   'Description       'NewDesc = FindSTD(6, jA)
+                    NewDesc = FindSTD(7, jA)               'F   'Description
                     NewDesc = RTrim(NewDesc)
                     NewDesc2 = NewDesc
 
-                    NewInv = FindSTD(9, jA)                'G   'INV-1               'NewInv = FindSTD(7, jA)  
-                    NewStdDwg = FindSTD(10, jA)            'H   'Std Dwg No.        'NewStdDwg = FindSTD(8, jA)
+                    NewInv = FindSTD(9, jA)                'G   'INV-1 
+                    NewStdDwg = FindSTD(10, jA)            'H   'Std Dwg No.
                     GetMat = FindSTD(11, jA)               'I   'Material       'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
-                    NPds = FindSTD(12, jA)                 'J   'Weight or pounds   'NPds = FindSTD(10, jA)
+                    NPds = FindSTD(12, jA)                 'J   'Weight or pounds
 
                     'NTest12 = FindSTD(12, jA)             'L
                     NewBOMPos = FindSTD(13, jA)             'M
@@ -3200,7 +3036,6 @@ GetData5:
                         End Select
 
                         .Range("K" & LineNo).Value = NewReq
-                        '.Range("L" & LineNo).Value = NewProd
 
                         If CompDesc <> "" Then
                             .Range("M" & RowNo).Value = CompDesc
@@ -3610,7 +3445,7 @@ Err_FindStdsBOM:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -3681,8 +3516,7 @@ Err_FindStdsBOM:
         FirstTimeThru = "Yes"
         Startj = 4
 
-        For l = (Startj + 1) To UBound(OldBOM, 2)                           'For l = (Startj + 1) To UBound(OldBOM, 2)
-            '                                   With StdItemsWrkSht
+        For l = (Startj + 1) To UBound(OldBOM, 2)
             NewDwg = OldBOM(1, l)               'A  'NewDwg = .Range("A" & j).Value         'Dwg
             NewRev = OldBOM(2, l)               'B  'NewRev = .Range("B" & j).Value         'Rev
             NewShpMk = OldBOM(3, l)             'C  'NewShpMk = .Range("C" & j).Value       'Ship Mark
@@ -3920,7 +3754,7 @@ Err_GetStdInfo:
             LenPrgLineNo = (Len(PrgLineNo))
             PrgLineNo = Mid(PrgLineNo, 1, (LenPrgLineNo - 2))
 
-            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)                         'DJL-10-11-2023-------HandleErrSQL(PrgName + " @ line " + st.GetFrame(3).GetFileLineNumber().ToString, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem2)
+            HandleErrSQL(PrgName, ErrNo, ErrMsg, ErrSource, PriPrg, ErrDll, DwgItem, PrgLineNo)
 
             If IsNothing(GenInfo3233.UserName) = True Then
                 GenInfo3233.UserName = System.Environment.UserName()
@@ -3978,7 +3812,6 @@ Err_GetStdInfo:
         If Directory.Exists("K:\AWA\" & System.Environment.UserName & "\AdeptWork\") = False Then                            'DJL 9-17-2024                    
             ClosePrg("Excel", "First", StartAdept)
             'ClosePrg("senddmp", "First", StartAdept)
-            'ClosePrg("senddmp", "Second", StartAdept)
         End If
 
         Dim Dir1 As DirectoryInfo = New DirectoryInfo(GenInfo3233.JobDir)
@@ -3987,11 +3820,6 @@ Err_GetStdInfo:
         'Look for "-DW-" and "._" then check next two Characters are MX, CA, or CH for standards.
 
         If DwgList.Items.Count = 0 Then
-            'For Each DwgItem1 In Dir1.GetFiles("*.idw")     '-------DJL-08-07-2025     'Not required.
-            '    If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then       '-------DJL-08-06-2025      'If InStr(DwgItem1.Name, "MX") = 0 And InStr(DwgItem1.Name, "CH") = 0 Then
-            '        DwgList.Items.Add(DwgItem1)
-            '    End If
-            'Next DwgItem1
             For Each DwgItem1 In Dir1.GetFiles("*.dwg")                     'Found error below where Bottom layouts was left off due to naming had "CH"
                 If InStr(DwgItem1.Name, "-DW-") > 0 Then     '-------DJL-08-07-2025      'Pittsburgh numbering solution
                     DwPos = InStr(DwgItem1.Name, "-DW-")
@@ -4039,9 +3867,6 @@ Err_GetStdInfo:
         Dim myProcesses() As Process
         Dim instance As Process
         Dim Title, Msg, Style, Response As Object
-
-        'ChkForAdditional:  'For some reason if Application does not close, this thoughs prg into endless loop.
-
         myProcesses = Process.GetProcessesByName(sender)                '-------Get Process if open example Excel.
         StartAdept = "False"
 
@@ -4169,23 +3994,28 @@ NextInstance:
         Dim GetShpMK, GetPcMK As String
         Dim CntDwgsNotFound, StrLineNo, PrevCnt, CntStd As Integer
         Dim AcadOpen As Boolean
-        'Dim ShpMkList(3, 1)
 
         On Error GoTo Err_WriteToExcel
 
+        'MsgBox "Error at line: " & Erl()
         ProgressBar1.Value = 0
-        Me.LblProgress.Text = "Writing Data Found on your Spread Sheets........Please Wait"          '-------DJL-06-27-2025     '"Sorting Data Found on your drawings........Please Wait"
+        Me.LblProgress.Text = "Writing Data Found on your Spread Sheets........Please Wait"
         Me.Refresh()
+
+        If ProgressBar1 Is Nothing Then MsgBox("ProgressBar1 is Nothing")
+        If Me Is Nothing Then MsgBox("Form is Nothing")
+        If Me.LblProgress Is Nothing Then MsgBox("LblProgress is Nothing")
+
 
         ProblemAt = "File not found for 2024"
 
         If Dir("K:\CAD\VBA\XLTSheets\ReadAutoCAD-Dwgs.xltm") <> vbNullString Then
             FileToOpen = "K:\CAD\VBA\XLTSheets\ReadAutoCAD-Dwgs.xltm"
-            FileSaveAS = PathBox.Text & GenInfo3233.FullJobNo & "-BULKBOM-R" & Me.ComboBxRev.Text & ".xls"  '-------DJL-08-08-2025      'Moved     'FileSaveAS = PathBox.Text & "\" & GenInfo3233.FullJobNo & "ReadDwgsAutoCAD.xls"
-            System.IO.File.Copy(FileToOpen, FileSaveAS, True)                           '-------DJL-08-08-2025      'Added
+            FileSaveAS = PathBox.Text & GenInfo3233.FullJobNo & "-BULKBOM-R" & Me.ComboBxRev.Text & ".xls"
+            System.IO.File.Copy(FileToOpen, FileSaveAS, True)
         End If
 
-        If File.Exists(FileSaveAS) Then                                                 '-------DJL-08-08-2025
+        If File.Exists(FileSaveAS) Then
             Dim attributes As FileAttributes = File.GetAttributes(FileSaveAS)
 
             If (attributes And FileAttributes.ReadOnly) = FileAttributes.ReadOnly Then
@@ -4197,24 +4027,45 @@ NextInstance:
             End If
         End If
 
-        If Dir(FileSaveAS) <> "" Then                           '-------DJL-08-08-2025      'If Dir(FileToOpen) <> "" Then
-            MainBOMFile = ExcelApp.Application.Workbooks.Open(FileSaveAS)               '-------DJL-08-08-2025      'MainBOMFile = ExcelApp.Application.Workbooks.Open(FileToOpen)
+        If ExcelApp Is Nothing Then            '-------DJL-03-27-2026
+            ExcelApp = CreateObject("Excel.Application")
         End If
 
-        'FileToOpen = "K:\CAD\VBA\XLTSheets\BOM-New-1-15-2024.xltm"          '-------DJL-08-07-2025      'Not Required
-        'OldFileNam = Me.PathBox.Text            '-------DJL-08-07-2025
-        'CopyBOMFile(OldFileNam, RevNo, ExcelApp)          '-------DJL-08-08-2025  'Not required anymore.    'Bill Sieg's machine is having problems open excel file and writing to it in the later part of progrm moving save spreadshet to here to see if this is the problem. 
+        'MsgBox("Step 1: Before opening workbook")            '-------DJL-03-27-2026
+
+        If Dir(FileSaveAS) <> "" Then
+            MainBOMFile = ExcelApp.Application.Workbooks.Open(FileSaveAS)
+        End If
+
+
+        If MainBOMFile Is Nothing Then            '-------DJL-03-27-2026
+            MsgBox("Workbook failed to open: " & FileSaveAS & " Program will now shut down please create a ticket for Spreadsheet could not be found.")
+            Exit Function
+        End If
+
+        'MsgBox("Step 2: After opening workbook")            '-------DJL-03-27-2026
 
         Workbooks = ExcelApp.Workbooks
         WorkShtName = "BulK BOM"
+        'MsgBox("Step 3: Before setting BOMWrkSht")            '-------DJL-03-27-2026
+
         BOMWrkSht = Workbooks.Application.Worksheets(WorkShtName)
+        BOMWrkSht.Activate()            '-------DJL-03-27-2026
         WorkSht = Workbooks.Application.ActiveSheet
         WorkShtName = WorkSht.Name
 
-        '-------DJL-07-14-2025  'No need to write out BOM then collect from BOM and write to Shipping List.
-        'WorkShtName = "Shipping List"
-        'ShippingWrkSht = Workbooks.Application.Worksheets(WorkShtName)
-        'ShipRowNo = 44
+        Dim ws As Object
+        For Each ws In ExcelApp.Worksheets            '-------DJL-03-27-2026
+            If Trim(UCase(ws.Name)) = "BULK BOM" Then
+                BOMWrkSht = ws
+                Exit For
+            End If
+        Next ws
+
+        If BOMWrkSht Is Nothing Then            '-------DJL-03-27-2026
+            MsgBox("Worksheet 'BulK BOM' not found.")
+            Exit Function
+        End If
 
         FileToOpen = "BulK BOM"
         ExcelApp.Visible = True
@@ -4224,6 +4075,17 @@ NextInstance:
         ExcelApp.WindowState = XlWindowState.xlMinimized
         With BOMWrkSht                          'Want to remove this part of writing to excel to sort.-------DJL-2-5-2024
 
+            If BOMList Is Nothing Then            '-------DJL-03-27-2026
+                MsgBox("BOMList array not initialized.")
+                Exit Function
+            End If
+
+            If GenInfo3233.Customer Is Nothing Then            '-------DJL-03-27-2026
+                MsgBox("Project info (GenInfo3233) not initialized.")
+                Exit Function
+            End If
+
+
             '-------DJL-10-11-2023-------Need to move this to a later point.
             For i = 1 To (UBound(BOMList, 2) - 1)                           '-------Look at doing this later and using Array's for everything.
                 RowNo = i + 4
@@ -4231,22 +4093,22 @@ NextInstance:
 
                 If RowNo = "5" Then           'Look at speeding up process by coping formatted lines   --- To Speed up Process
                     BOMWrkSht.Activate()
-                    .Rows(RowNo & ":" & RowNo).Select()                         '-------DJL-07-03-2025
-                    .Rows(RowNo & ":" & RowNo).Insert()                         '-------DJL-07-03-2025
-                    .Range("AA3").Value = GenInfo3233.Customer                  '-------DJL-07-03-2025
+                    .Rows(RowNo & ":" & RowNo).Select()
+                    .Rows(RowNo & ":" & RowNo).Insert()
+                    .Range("AA3").Value = GenInfo3233.Customer
                 Else
                     .Rows((RowNo - 1) & ":" & (RowNo - 1)).Select()
-                    .Rows(RowNo & ":" & RowNo).Insert()             '-------DJL-07-03-2025      '.Rows((RowNo - 1) & ":" & (RowNo - 1)).Insert()
+                    .Rows(RowNo & ":" & RowNo).Insert()
                 End If
 
                 If InStr(BOMList(1, i), "Delete") > 0 Then
                     GoTo DeleteDup
                 End If
 
-                GetPcMK = BOMList(5, i)                            '-------DJL-07-03-2025      'GetShpMK = BOMList(5, i)
-                GetShpMK = BOMList(3, i)                            '-------DJL-07-03-2025     'GetPcMK = BOMList(3, i)
+                GetPcMK = BOMList(5, i)
+                GetShpMK = BOMList(3, i)
 
-                If GetShpMK = "" And GetPcMK <> "" Then                'If BOMList(5, i) = "" & BOMList(3, i) <> "" Then
+                If GetShpMK = "" And GetPcMK <> "" Then
                     .Range("A" & RowNo).Value = BOMList(1, i) & "_" & GetPcMK
                 Else
                     If GetShpMK <> "" Then
@@ -4259,7 +4121,7 @@ NextInstance:
                 .Range("B" & RowNo).Value = BOMList(1, i)
                 .Range("C" & RowNo).Value = BOMList(2, i)
 
-                If GetPcMK = "" And GetPcMK = "-" Then                            '-------DJL-07-03-2025    'If GetPcMK = "" Then
+                If GetPcMK = "" And GetPcMK = "-" Then
                     .Range("D" & RowNo).Value = GetPrevShpMK
                 Else
                     If BOMList(3, i) <> "" Then                                     '-------DJL-07-03-2025
@@ -4268,96 +4130,11 @@ NextInstance:
                     Else
                         .Range("D" & RowNo).Value = GetPrevShpMK
                     End If
-
-                    '-------DJL-07-14-2025  'No need to write out BOM then collect from BOM and write to Shipping List.
-                    'If InStr(BOMList(3, i), "SR") = 1 And BOMList(7, i) <> "" Then                          '-------DJL-07-14-2025      'If InStr(GetShipMk, "SR") = 1 Then
-                    '    BOMList(7, i) = "SHELL PLATE " & BOMList(3, i) & " " & BOMList(7, i)      '-------DJL-07-14-2025      'BOMList(7, i) = "SHELL PLATE " & GetShipMk & BOMList(7, i)
-                    'End If
-
-                    '-------DJL-07-14-2025  'No need to write out BOM then collect from BOM and write to Shipping List.
-                    'If InStr(GetPrevShpMK, "SR") = 1 And BOMList(7, i) <> "" Then
-                    '    ShippingWrkSht.Activate()
-
-                    '    With ShippingWrkSht
-                    '        .Range("H" & ShipRowNo).Value = "SHELL PLATE " & BOMList(3, i) & " " & BOMList(7, i)      '-------DJL-07-14-2025  
-                    '    End With
-                    'Else
-                    '    If InStr(GetPrevShpMK, "SR") = 1 Then
-                    '        ShippingWrkSht.Activate()
-
-                    '        With ShippingWrkSht
-                    '            .Range("H" & ShipRowNo).Value = "SHELL PLATE " & BOMList(3, i) & " " & BOMList(6, i)      '-------DJL-07-14-2025  
-                    '        End With
-                    '    End If
-                    'End If
-
-                    '-------DJL-07-14-2025  'No need to write out BOM then collect from BOM and write to Shipping List.
-                    '-------DJL-07-14-2025      'Why not Just write it to Spreadsheet instead of collecting it again.
-                    'If BOMList(3, i) <> "" Then
-                    '    ShipRowNo = (ShipRowNo + 1)
-                    '    ShippingWrkSht.Activate()
-                    '    With ShippingWrkSht
-
-                    '        If ShipRowNo = "45" Then           'Look at speeding up process by coping formatted lines   --- To Speed up Process
-                    '            .Rows(ShipRowNo & ":" & ShipRowNo).Select()                         '-------DJL-07-14-2025
-                    '            .Rows((ShipRowNo + 1) & ":" & (ShipRowNo + 1)).Insert()
-                    '        Else
-                    '            .Rows((ShipRowNo - 1) & ":" & (ShipRowNo - 1)).Select()
-                    '            .Rows(ShipRowNo & ":" & ShipRowNo).Insert()
-                    '        End If
-
-                    '        .Range("C" & ShipRowNo).Value = (GenInfo3233.FullJobNo & "/" & GenInfo3233.Customer)       'Job Number/Customer
-                    '        .Range("D" & ShipRowNo).Value = BOMList(1, i)       'CurrentDwgNo
-                    '        .Range("E" & ShipRowNo).Value = BOMList(2, i)       'CurrentDwgRev
-                    '        .Range("F" & ShipRowNo).Value = BOMList(3, i)       'Get2DShipMk
-                    '        .Range("G" & ShipRowNo).Value = BOMList(4, i)       'Get2DShipQty
-                    '        '.Range("E" & ShipRowNo).Value = BOMList(5, i)      'GetPartNo
-
-                    '        If InStr(GetPrevShpMK, "SR") = 1 Then
-                    '            .Range("H" & ShipRowNo).Value = "SHELL PLATE " & BOMList(3, i) & " " & BOMList(7, i)      '-------DJL-07-14-2025        'GetShipDesc
-                    '        Else
-                    '            .Range("H" & ShipRowNo).Value = BOMList(6, i)       'GetShipDesc
-                    '        End If
-
-                    '        '.Range("E" & ShipRowNo).Value = BOMList(7, i)      'GetDesc
-                    '        '.Range("F" & ShipRowNo).Value = BOMList(8, i)      '"Yes"
-                    '        .Range("K" & ShipRowNo).Value = BOMList(9, i)       'GetInv1
-                    '        .Range("L" & ShipRowNo).Value = BOMList(10, i)      'GetInv2
-
-                    '        If BOMList(11, i) = vbNullString Or Mid(BOMList(11, i), 1, 1) = " " Then
-                    '            .Range("M" & ShipRowNo).Value = BOMList(12, i) & Chr(10) & BOMList(13, i)
-                    '        Else
-                    '            .Range("M" & ShipRowNo).Value = BOMList(11, i)
-                    '        End If
-
-                    '        '.Range("M" & ShipRowNo).Value = BOMList(11, i)      'GetMat     or (GetMat2 & " " & GetMat3)
-                    '        '.Range("F" & ShipRowNo).Value = BOMList(12, i)      '
-                    '        '.Range("G" & ShipRowNo).Value = BOMList(13, i)     'GetLen
-                    '        .Range("N" & ShipRowNo).Value = BOMList(14, i)      'GetWt
-                    '        '.Range("E" & ShipRowNo).Value = BOMList(15, i)     'CurrentDwgNo
-                    '        '.Range("F" & ShipRowNo).Value = BOMList(16, i)     '
-                    '        '.Range("G" & ShipRowNo).Value = BOMList(17, i)      'InsertionPT(1).ToString
-                    '        '.Range("D" & ShipRowNo).Value = BOMList(18, i)      'GetProc
-                    '        '.Range("E" & ShipRowNo).Value = BOMList(19, i)      '(InsPt0)
-                    '        '.Range("F" & ShipRowNo).Value = BOMList(20, i)      'ShipRowNo
-                    '    End With
-
-                    '    'ShpMkList(0, UBound(ShpMkList, 2)) = BOMList(6, i)      'GetPartDesc        '-------DJL-07-03-2025      'ShpMkList(0, UBound(ShpMkList, 2)) = BOMList(7, i)
-                    '    'ShpMkList(1, UBound(ShpMkList, 2)) = BOMList(1, i)      'GetDwgNo
-                    '    'ShpMkList(2, UBound(ShpMkList, 2)) = BOMList(3, i)      'GetShipMk
-                    '    'ShpMkList(3, UBound(ShpMkList, 2)) = BOMList(5, i)      'GetShopMk
-                    '    'ReDim Preserve ShpMkList(3, UBound(ShpMkList, 2) + 1)
-                    'End If
                 End If
 
                 BOMWrkSht.Activate()
                 .Range("E" & RowNo).Value = BOMList(5, i)
                 .Range("F" & RowNo).Value = BOMList(4, i)                           'Will always be BOMList(4, i)       '-------DJL-10-11-2023
-
-                'Per request from Trevor Ruffin do not need to add Material to Description anymore.-------DJL 4-18-2024
-                'GetMat = BOMList(11, i)
-                'GetMat2 = BOMList(12, i)
-                'GetMat3 = BOMList(13, i)
 
                 '-------Should below be looking at 6 and 7 instead of 7 and 8-------DJL-10-11-2023
                 If BOMList(7, i) = vbNullString Or BOMList(7, i) = " " Then
@@ -4397,8 +4174,6 @@ NextInstance:
                 Inv1 = RTrim(Inv1)                                  'Modified the program here to fix issue.   DJL 03/21/2013
 
                 .Range("H" & RowNo).Value = Inv1
-                'BOMList(9, i) = Inv1                            '-------DJL-07-03-2025      'Not required
-
                 .Range("I" & RowNo).Value = BOMList(10, i)
 
                 If BOMList(11, i) = vbNullString Or Mid(BOMList(11, i), 1, 1) = " " Then
@@ -4408,21 +4183,8 @@ NextInstance:
                 End If
 
                 .Range("K" & RowNo).Value = BOMList(14, i)
-                '.Range("N" & RowNo).NumberFormat = "@"                         '-------DJL-07-03-2025      'Not Required
-                '.Range("N" & RowNo).Value = BOMList(15, i)
-                '.Range("O" & RowNo).NumberFormat = "General"                         '-------DJL-07-03-2025      'Not Required
-                '.Range("O" & RowNo).Value = BOMList(16, i)
-                '.Range("P" & RowNo).NumberFormat = "General"                         '-------DJL-07-03-2025      'Not Required
-                '.Range("P" & RowNo).Value = BOMList(0, i)
-                '.Range("Q" & RowNo).NumberFormat = "General"                         '-------DJL-07-03-2025      'Not Required
-                '.Range("Q" & RowNo).Value = BOMList(17, i)
                 .Range("R" & RowNo).Value = BOMList(8, i)                      'See if Standard needs to be found on some references the parts are all listed out. Example Job 9318-0206_18B parts are simular but not the same is a reference only.
-                '.Range("W" & RowNo).Value = BOMList(13, i)                          'Length        '-------DJL-07-03-2025      'Not Required for AutoCAD.
-                .Range("W" & RowNo).Value = BOMList(18, i)                      'Procurement        '-------DJL-07-03-2025      '.Range("X" & RowNo).Value = BOMList(18, i)
-                '.Range("Y" & RowNo).NumberFormat = "@"                         '-------DJL-07-03-2025      'Not Required
-                '.Range("Y" & RowNo).Value = BOMList(19, i)
-                '.Range("Z" & RowNo).Value = BOMList(0, i)                         '-------DJL-07-03-2025      'Not Required
-                'BOMList(20, i) = RowNo                             '-------Replaced at start of Array so program knows what item it is collecting Standards for.
+                .Range("W" & RowNo).Value = BOMList(18, i)                      'Procurement
                 .Range("AA" & RowNo).Value = BOMList(20, i)           'Below the sort is fixed and the recno must equal the sort order.
 
 DontAddBlankLines:  '---------------Do not Add Blank BOM Lines:
