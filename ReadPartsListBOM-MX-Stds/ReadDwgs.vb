@@ -2,10 +2,10 @@
 Option Explicit On
 Option Compare Text
 
+Imports System.Collections.Generic
+Imports System.Data.SqlClient                   'Used for SQL Connection
 Imports System.IO
 Imports System.IO.Stream
-Imports System.Data.SqlClient                   'Used for SQL Connection
-
 Imports System.Reflection
 Imports System.Text.RegularExpressions
 Imports AutoCAD
@@ -73,7 +73,14 @@ Public Class ReadDwgs                      'BulkBOMFab3D
     Public Count As Integer
     Public BOMList(21, 1) As Object
     Public BOMListNew(21, 1) As Object
-    Public BOMListSort As New ArrayList
+
+    '-------DJL-04-16-2026
+    'Public BOMListSorty As New ArrayList            '-------DJL-04-16-2026      'Public BOMListSort As New ArrayList
+    Public BOMListSortXx As New ArrayList            '-------DJL-04-16-2026
+
+    Dim BOMListSortY(2, 1) As Object            '-------DJL-04-16-2026
+    Dim BOMListSortX(2, 1) As Object            '-------DJL-04-16-2026
+
     Public NewBOMList(20, 1) As String
     Public ShpMkList() As String
     Public STDsList(20, 1)              'As String
@@ -531,13 +538,13 @@ Err_BOM_Menu_Load:
         Dim GroupCode(1) As Short
         Dim AcadPref As AutoCAD.AcadPreferencesSystemClass
         Dim Dimscale, CompareX2 As Double, CompareX1 As Double     '-------DJL-07-03-2025      'Not Required.
-        Dim a, b, c, d, f, i, s, t, v, x, y, z, ShtPos, QtyMarkIssue, NotePos, DecPos, CountVal, CntTitleBlks, CntDwgs, LinesRemoved, CntCollected, CntBOMList, RowNoPlus4 As Integer
+        Dim a, b, c, d, f, g, i, s, t, v, x, y, z, ShtPos, QtyMarkIssue, NotePos, DecPos, CountVal, CntTitleBlks, CntDwgs, LinesRemoved, CntCollected, CntBOMList, RowNoPlus4 As Integer
         Dim TestTags, Test1, OldFileNam, MX2, MissingTxt1, MissingTxt2, LookForStd, InsPt0, InsPt1, LineNo, LineNo2, LineNo3 As String
         Dim SpacePos, CntBlks, CntCollect, CntSortList4, CntAttFound, DwgNoPos As Integer
         Dim CurrentDwgRev, CurrentDwgNo, FilePath, CurrentDWG, PrgName, WorkBookName, AdeptStd, AdeptPrg, BOMListSortChg As String
-        Dim GetShipStds, GetInv1, GetInv2, Get2DShipQty, FullJobNo, FoundIndex, FirstDwg, FindIndex, ExistSTD, DrawingIndex, CurrentStdNo As String
+        Dim GetShipStds, GetInv1, GetInv2, Get2DShipQty, FullJobNo, FirstDwg, FindIndex, ExistSTD, DrawingIndex, CurrentStdNo As String
         Dim GetPartNo, Get2DShipMk, GetQty, GetShipDesc, GetDesc, GetLen, GetMat, GetMat2, GetMat3, GetNotes, GetWt, GetProc, DwgItem2, Dwg As String
-        Dim BOMItemNam, Customer, ChkSort As String
+        Dim BOMItemNam, Customer, ChkSort, FoundIndexX, FoundIndexY As String
         Dim StdsWrkSht As Worksheet, StdItemsWrkSht As Worksheet
 
         PrgName = "StartButton_Click-Part1"
@@ -713,23 +720,29 @@ FindAttributes:
 
                     Select Case Temparray(t).TagString
                         Case "DN"
-                            CurrentDwgNo = Temparray(t).TextString
+                            CurrentDwgNo = DwgItem.Name         '-------Meeting Manav request to use the filename   '--------DJL-05-11-2026
 
-                            If InStr(CurrentDwgNo, "(SH") > 0 Then          '-------New problem Job 2212-1001-HVEC has put the (sht 1 of 2) on DN tag for dwg no.
-                                ShtPos = InStr(CurrentDwgNo, "(SH")
-                                CurrentDwgNo = Mid(CurrentDwgNo, 1, (ShtPos - 1))
-                            Else
-                                If InStr(CurrentDwgNo, "(") > 0 Then
-                                    ShtPos = InStr(CurrentDwgNo, "(")
-                                    CurrentDwgNo = Mid(CurrentDwgNo, 1, (ShtPos - 1))
-                                End If
-                            End If
+
+                            'CurrentDwgNo = Temparray(t).TextString   '--------DJL-05-11-2026
+
+                            'If InStr(CurrentDwgNo, "(SH") > 0 Then          '-------New problem Job 2212-1001-HVEC has put the (sht 1 of 2) on DN tag for dwg no.
+                            '    ShtPos = InStr(CurrentDwgNo, "(SH")
+                            '    CurrentDwgNo = Mid(CurrentDwgNo, 1, (ShtPos - 1))
+                            'Else
+                            '    If InStr(CurrentDwgNo, "(") > 0 Then
+                            '        ShtPos = InStr(CurrentDwgNo, "(")
+                            '        CurrentDwgNo = Mid(CurrentDwgNo, 1, (ShtPos - 1))
+                            '    End If
+                            'End If
 
                             DwgNoPos = InStr(CurrentDwgNo, "-DW-")             '-------DJL-07-07-2025
 
                             If DwgNoPos > 0 Then                                '5606-1107-210A-DW-     'Shiela Ganote
                                 CurrentDwgNo = Mid(CurrentDwgNo, (DwgNoPos + 4), Len(CurrentDwgNo))             '-------DJL-07-07-2025
                             End If
+
+                            CurrentDwgNo = CurrentDwgNo.Replace(".dwg", "")   '--------DJL-05-11-2026
+                            CurrentDwgNo = CurrentDwgNo.Replace(".DWG", "")   '--------DJL-05-11-2026
 
                             CurrentDwgNo = LTrim(CurrentDwgNo)
                             CurrentDwgNo = RTrim(CurrentDwgNo)
@@ -1015,7 +1028,16 @@ UpdateMat4:
                         ReDim Preserve BOMList(21, UBound(BOMList, 2) + 1)
 
                         '-------DJL-06-27-2025      'Still having issues on sort, Because we are looking at items per drawing we can remove some of the complexity.
-                        BOMListSort.Add(InsertionPT(1).ToString)     '-------DJL-06-27-2025       'BOMListSort.Add(DrawingIndex)  '-------DJL 06-27-2025      'Modified record zero to = 0 above
+                        BOMListSortXx.Add(InsertionPT(1).ToString)                              '-------DJL-05-13-2026
+                        BOMListSortX(1, UBound(BOMListSortX, 2)) = InsertionPT(0).ToString
+                        BOMListSortX(2, UBound(BOMListSortX, 2)) = InsertionPT(1).ToString     '-------DJL-04-16-2026
+                        ReDim Preserve BOMListSortX(2, UBound(BOMListSortX, 2) + 1)
+
+                        'BOMListSortx.Add(InsertionPT(0).ToString & InsertionPT(1).ToString)     '-------DJL-04-16-2026
+
+                        BOMListSortY(1, UBound(BOMListSortY, 2)) = InsertionPT(0).ToString
+                        BOMListSortY(2, UBound(BOMListSortY, 2)) = InsertionPT(1).ToString     '-------DJL-04-16-2026
+                        'BOMListSortY.Add(InsertionPT(1).ToString)     '-------DJL-04-16-2026     'BOMListSort.Add(InsertionPT(1).ToString)       '-------DJL-06-27-2025       'BOMListSort.Add(DrawingIndex)  '-------DJL 06-27-2025      'Modified record zero to = 0 above
 NextBOMItem:
                         GetPartNo = Nothing
                         Get2DShipMk = Nothing
@@ -1059,43 +1081,27 @@ NextDwg:
                 GetNotes = Nothing
                 GetWt = Nothing
 
-                BOMListSort.Sort()          '-------DJL-07-07-2025      'Must be done Sorts from 0 to 99.000000 'Below form 99.0000000 to 0
-                BOMListSort.Reverse()   '-------DJL-06-27-2025      'For some reason this does not resort from position 0 but from 1 to 2
-                Dim Val1, Val2 As String        '-------DJL-07-03-2025
-                Dim Val1Dbl, Val2Dbl As Double
-                Dim ValChg As String
-ChkSortAgain:                                       '-------DJL-07-28-2025  'Added
-                For v = 0 To (BOMListSort.Count - 1)
-                    Val1 = BOMListSort(v)
-                    Val1Dbl = Val1
-
-                    If v = (BOMListSort.Count - 1) Then
-                        GoTo SortNoDone
-                    End If
-
-                    Val2 = BOMListSort(v + 1)
-                    Val2Dbl = Val2
-                    ValChg = 0
-
-                    If Val1Dbl < Val2Dbl Then
-                        ValChg = BOMListSort(v)
-                        BOMListSort(v) = BOMListSort(v + 1)
-                        BOMListSort(v + 1) = ValChg
-                        ChkSort = "Found"
-                    End If
-                Next v
-
-SortNoDone:
-                If ChkSort = "Found" Then
-                    ChkSort = ""
-                    GoTo ChkSortAgain
-                End If
-                y = 1
-
-                For x = 0 To (BOMListSort.Count)
+                '------------------------------------------------------
+                '------------------------------------------------------
+                '------------------------------------------------------
+                SortBOMListSortXx(BOMListSortXx)                                    '-------DJL-05-13-2026
+                '------------------------------------------------------
+                '------------------------------------------------------
+                SortBOMListSortX(BOMListSortY, sortDescY:=True, sortDescX:=True)
+                '------------------------------------------------------
+                '------------------------------------------------------
+                SortBOMListSortX(BOMListSortX, sortDescY:=True, sortDescX:=True)
+                '------------------------------------------------------
+                ' sort descending on Y then descending on X (same behavior as your existing Reverse calls)
+                SortBOMListByColumns(BOMList, sortDescY:=True, sortDescX:=True)
+                '------------------------------------------------------
+                '------------------------------------------------------
+                For x = 1 To UBound(BOMListSortX)       '-------DJL-05-11-2026       'For x = 0 To UBound(BOMListSortx)      '-------DJL-04-16-2026  
+                    'For x = 0 To (BOMListSorty.Count)
 FindNextItem:
-                    If BOMListSort.Count <> 0 Then
-                        FindIndex = BOMListSort(0)
+                    If BOMListSortXx.Count > 0 Then             '-------DJL-05-13-2026       'If UBound(BOMListSortX) <> 0 Then 
+                        'FindIndex = BOMListSortX(2, x)            '-------DJL-05-11-2026        'FindIndex = BOMListSortX(1, g)
+                        FindIndex = BOMListSortXx(0)            '-------DJL-05-13-2026
                     Else
                         GoTo SortFinished
                     End If
@@ -1103,14 +1109,15 @@ FindNextItem:
                     x = y
                     CntBOMList = UBound(BOMList, 2)
 
-                    If y > CntBOMList And BOMListSort.Count > 0 Then
+                    If y > CntBOMList And UBound(BOMListSortX) > 0 Then                       '-------DJL-04-16-2026
                         x = 1
                     End If
 
                     For y = x To UBound(BOMList, 2)
-                        FoundIndex = BOMList(17, (CntBOMList - y))
+                        FoundIndexY = BOMList(19, (CntBOMList - y))                       '-------DJL-04-16-2026'       'FoundIndex = BOMList(19, (CntBOMList - y))
+                        FoundIndexX = BOMList(17, (CntBOMList - y))                       '-------DJL-04-16-2026
 
-                        If FindIndex = FoundIndex Then                                                      '-------DJL-06-09-2025
+                        If FindIndex = FoundIndexX Then     '-------DJL-05-11-2026      'If FindIndex = FoundIndexY Then    '-------DJL-06-09-2025
                             BOMListNew(1, UBound(BOMListNew, 2)) = BOMList(1, (CntBOMList - y))     'CurrentDwgNo '-------DJL-06-27-2025      'BOMListNew(1, UBound(BOMListNew, 2)) = BOMList(1, y)
                             BOMListNew(2, UBound(BOMListNew, 2)) = BOMList(2, (CntBOMList - y))     'CurrentDwgRev
                             BOMListNew(3, UBound(BOMListNew, 2)) = BOMList(3, (CntBOMList - y))     'Get2DShipMk
@@ -1159,10 +1166,12 @@ FindNextItem:
                             'BOMListNew(21, UBound(BOMListNew, 2)) = BOMList(21, (CntBOMList - y))       '-------DJL-07-03-2025      'Not Required.
                             ReDim Preserve BOMListNew(21, UBound(BOMListNew, 2) + 1)
 
-                            BOMListSort.RemoveAt(0)
+                            BOMListSortXx.RemoveAt(0)        '-------DJL-05-13-2026
+                            BOMListSortX(1, x) = "Found"        '-------DJL-05-11-2026      'BOMListSortX(1, x) = "Found"   '-------DJL-04-16-2026    'BOMListSortx.RemoveAt(0)   'Remove the first record which is the one just added to the new array list.  '-------DJL-06-27-2025
                             y = (y + 1)
 
-                            If BOMListSort.Count > 0 Then
+                            If BOMListSortXx.Count > 0 Then             '-------DJL-05-13-2026       'If UBound(BOMListSortX) > 0 Then        '-------DJL-05-11-2026      '
+                                y = 0                               '-------DJL-05-13-2026  
                                 GoTo FindNextItem
                             End If
 
@@ -1170,9 +1179,6 @@ FindNextItem:
                         End If
                     Next y
 Nextx:
-                    If BOMListSort.Count > 0 Then
-                        GoTo FindNextItem
-                    End If
                 Next x
 Nextz:
 SortFinished:
@@ -1465,7 +1471,21 @@ Continue_Dwgs:  '------------------------------Get Standard drawing information 
             For i = 0 To UBound(Temparray)
                 Select Case Temparray(i).TagString
                     Case "DN"
-                        CurrentDwgNo = Temparray(i).TextString
+                        CurrentDwgNo = DwgItem.Name         '-------Meeting Manav request to use the filename   '--------DJL-05-11-2026
+
+                        DwgNoPos = InStr(CurrentDwgNo, "-DW-")             '-------DJL-07-07-2025
+
+                        If DwgNoPos > 0 Then                                '5606-1107-210A-DW-     'Shiela Ganote
+                            CurrentDwgNo = Mid(CurrentDwgNo, (DwgNoPos + 4), Len(CurrentDwgNo))             '-------DJL-07-07-2025
+                        End If
+
+                        CurrentDwgNo = CurrentDwgNo.Replace(".dwg", "")   '--------DJL-05-11-2026
+                        CurrentDwgNo = CurrentDwgNo.Replace(".DWG", "")   '--------DJL-05-11-2026
+
+                        CurrentDwgNo = LTrim(CurrentDwgNo)
+                        CurrentDwgNo = RTrim(CurrentDwgNo)
+
+                        'CurrentDwgNo = Temparray(i).TextString   '--------DJL-05-11-2026
                         CntAttFound = (CntAttFound + 1)
                     Case "RN"
                         CurrentDwgRev = Temparray(i).TextString
@@ -3778,6 +3798,189 @@ Err_GetStdInfo:
         End If
 
     End Function
+
+    Public Class NumericComparer
+        Implements System.Collections.IComparer
+
+        Public Function Compare(x As Object, y As Object) As Integer Implements System.Collections.IComparer.Compare
+            Dim dx As Double = CDbl(x)
+            Dim dy As Double = CDbl(y)
+            Return dx.CompareTo(dy)
+        End Function
+    End Class
+
+    Private Sub SortBOMListByColumns(ByRef BOMList As Object, Optional ByVal sortDescY As Boolean = True, Optional ByVal sortDescX As Boolean = True)
+        ' Sort BOMList by BOMList(17, idx) then BOMList(17, idx)
+        If BOMList Is Nothing Then Exit Sub
+
+        Dim maxField As Integer = UBound(BOMList, 1)
+        Dim maxRec As Integer = UBound(BOMList, 2)
+
+        If maxRec <= 1 Then Exit Sub
+
+        ' Make a local ByVal reference to avoid closing over a ByRef parameter in the lambda
+        Dim arr As Object = BOMList
+
+        Dim indices As New List(Of Integer)
+        For i As Integer = 1 To maxRec - 1
+            indices.Add(i)
+        Next
+
+        Dim comparison As Comparison(Of Integer) =
+        Function(a As Integer, b As Integer) As Integer
+            Dim ay As Double = 0, by As Double = 0
+            Dim ax As Double = 0, bx As Double = 0
+
+            Try
+                If arr(19, a) IsNot Nothing AndAlso arr(19, a).ToString().Trim() <> "" Then Double.TryParse(arr(19, a).ToString(), ay)
+            Catch ex As Exception
+                ay = 0
+            End Try
+
+            Try
+                If arr(19, b) IsNot Nothing AndAlso arr(19, b).ToString().Trim() <> "" Then Double.TryParse(arr(19, b).ToString(), by)
+            Catch ex As Exception
+                by = 0
+            End Try
+
+            Dim cmp As Integer = ay.CompareTo(by)
+            If sortDescY Then cmp = -cmp
+            If cmp <> 0 Then Return cmp
+
+            Try
+                If arr(17, a) IsNot Nothing AndAlso arr(17, a).ToString().Trim() <> "" Then Double.TryParse(arr(17, a).ToString(), ax)
+            Catch ex As Exception
+                ax = 0
+            End Try
+
+            Try
+                If arr(17, b) IsNot Nothing AndAlso arr(17, b).ToString().Trim() <> "" Then Double.TryParse(arr(17, b).ToString(), bx)
+            Catch ex As Exception
+                bx = 0
+            End Try
+
+            cmp = ax.CompareTo(bx)
+            If sortDescX Then cmp = -cmp
+            Return cmp
+        End Function
+
+        indices.Sort(comparison)
+
+        Dim sorted(maxField, maxRec) As Object
+        For newPos As Integer = 1 To indices.Count
+            Dim srcIdx As Integer = indices(newPos - 1)
+            For fld As Integer = 1 To maxField
+                sorted(fld, newPos) = arr(fld, srcIdx)
+            Next
+        Next
+
+        If maxRec > indices.Count Then
+            For fld As Integer = 1 To maxField
+                sorted(fld, indices.Count + 1) = Nothing
+            Next
+        End If
+
+        BOMList = sorted
+    End Sub
+
+    Private Sub SortBOMListSortX(ByRef BOMListSortX As Object, Optional ByVal sortDescY As Boolean = True, Optional ByVal sortDescX As Boolean = True)
+        If BOMListSortX Is Nothing Then Exit Sub  '-------DJL-05-11-2026      'If BOMList Is Nothing Then Exit Sub
+
+        Dim maxField As Integer = UBound(BOMListSortX, 1)           '-------DJL-05-11-2026      'Dim maxField As Integer = UBound(BOMList, 1)
+        Dim maxRec As Integer = UBound(BOMListSortX, 2)             '-------DJL-05-11-2026      'Dim maxRec As Integer = UBound(BOMList, 2)
+
+        If maxRec <= 1 Then Exit Sub
+
+        Dim arr As Object = BOMListSortX        ' Make a local ByVal reference to avoid closing over a ByRef parameter in the lambda       '-------DJL-05-11-2026      'Dim arr As Object = BOMList    
+
+        Dim indices As New List(Of Integer)
+        For i As Integer = 1 To maxRec - 1
+            indices.Add(i)
+        Next
+
+        Dim comparison As Comparison(Of Integer) =
+        Function(a As Integer, b As Integer) As Integer
+            Dim ay As Double = 0, by As Double = 0
+            Dim ax As Double = 0, bx As Double = 0
+
+            Try
+                If arr(1, a) IsNot Nothing AndAlso arr(1, a).ToString().Trim() <> "" Then Double.TryParse(arr(1, a).ToString(), ay)
+            Catch ex As Exception
+                ay = 0
+            End Try
+
+            Try
+                If arr(1, b) IsNot Nothing AndAlso arr(1, b).ToString().Trim() <> "" Then Double.TryParse(arr(1, b).ToString(), by)
+            Catch ex As Exception
+                by = 0
+            End Try
+
+            Dim cmp As Integer = ay.CompareTo(by)
+            If sortDescY Then cmp = -cmp
+            If cmp <> 0 Then Return cmp
+
+            Try
+                If arr(2, a) IsNot Nothing AndAlso arr(2, a).ToString().Trim() <> "" Then Double.TryParse(arr(2, a).ToString(), ax)      '-------DJL-05-11-2026      'If arr(17, a) IsNot Nothing AndAlso arr(17, a).ToString().Trim() <> "" Then Double.TryParse(arr(17, a).ToString(), ax)
+            Catch ex As Exception
+                ax = 0
+            End Try
+
+            Try
+                If arr(2, b) IsNot Nothing AndAlso arr(2, b).ToString().Trim() <> "" Then Double.TryParse(arr(2, b).ToString(), bx)      '-------DJL-05-11-2026      'If arr(17, b) IsNot Nothing AndAlso arr(17, b).ToString().Trim() <> "" Then Double.TryParse(arr(17, b).ToString(), bx)
+            Catch ex As Exception
+                bx = 0
+            End Try
+
+            cmp = ax.CompareTo(bx)
+            If sortDescX Then cmp = -cmp
+            Return cmp
+        End Function
+
+        indices.Sort(comparison)
+
+        Dim sorted(maxField, maxRec) As Object
+        For newPos As Integer = 1 To indices.Count
+            Dim srcIdx As Integer = indices(newPos - 1)
+            For fld As Integer = 1 To maxField
+                sorted(fld, newPos) = arr(fld, srcIdx)
+            Next
+        Next
+
+        If maxRec > indices.Count Then
+            For fld As Integer = 1 To maxField
+                sorted(fld, indices.Count + 1) = Nothing
+            Next
+        End If
+
+        BOMListSortX = sorted                '-------DJL-05-11-2026      'BOMList = sorted
+    End Sub
+
+    Private Sub SortBOMListSortXx(ByRef BOMListSortXx As ArrayList)
+        If BOMListSortXx Is Nothing Then Exit Sub
+
+        Dim maxRec As Integer = BOMListSortXx.Count
+        If maxRec <= 1 Then Exit Sub
+
+        Dim arr As ArrayList = BOMListSortXx
+        Dim values As New List(Of Double)
+
+        For i As Integer = 0 To maxRec - 1      ' Build a list of values for sorting
+            Dim val As Double = 0
+            If arr(i) IsNot Nothing AndAlso arr(i).ToString().Trim() <> "" Then
+                Double.TryParse(arr(i).ToString(), val)
+            End If
+            values.Add(val)
+        Next
+
+        values.Sort()                           ' Sort descending
+        values.Reverse()
+
+        For i As Integer = 0 To maxRec - 1      ' Update the ArrayList in descending order
+            arr(i) = values(i)
+        Next
+
+        BOMListSortXx = arr
+    End Sub
 
     Private Sub PathBox_Click(sender As Object, e As EventArgs) Handles PathBox.Click
         Dim FileNam2 As String

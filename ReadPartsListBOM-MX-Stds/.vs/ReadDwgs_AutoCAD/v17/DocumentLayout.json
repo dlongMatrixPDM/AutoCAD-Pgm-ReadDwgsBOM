@@ -6,7 +6,7 @@
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ReadDwgs_AutoCAD||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|c:\\working copy github-pdm-2024-fileschkout-new\\autocad programs\\autocad-pgm-readdwgsbom\\readpartslistbom-mx-stds\\readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|solutionrelative:readdwgs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
@@ -18,7 +18,7 @@
       "RelativeMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|solutionrelative:31.034-formatting.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|c:\\working copy github-pdm-2024-fileschkout-new\\autocad programs\\autocad-pgm-readdwgsbom\\readpartslistbom-mx-stds\\31.034-dwgsnotfound.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\31.034-dwgsnotfound.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{9EE0C8C7-FA7E-30E7-89E0-7773308A2BCA}|ReadDwgs_AutoCAD.vbproj|solutionrelative:31.034-dwgsnotfound.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
@@ -63,16 +63,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "31.034-ClassDiagram1.cd",
-              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\31.034-ClassDiagram1.cd",
-              "RelativeDocumentMoniker": "31.034-ClassDiagram1.cd",
-              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\31.034-ClassDiagram1.cd",
-              "RelativeToolTip": "31.034-ClassDiagram1.cd",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAADMAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000463|",
-              "WhenOpened": "2026-03-25T18:45:53.96Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "Delegate.cs",
+              "DocumentMoniker": "C:\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs",
+              "ToolTip": "C:\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs [Read Only]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T19:57:54.375Z",
+              "EditorCaption": " [Read Only]"
             },
             {
               "$type": "Document",
@@ -87,6 +86,42 @@
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReadDwgs.vb",
+              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
+              "RelativeDocumentMoniker": "ReadDwgs.vb",
+              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
+              "RelativeToolTip": "ReadDwgs.vb",
+              "ViewState": "AgIAAPUEAAAAAAAAAIA4wAkFAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-07-25T18:18:44.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "31.034-ClassDiagram1.cd",
+              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\31.034-ClassDiagram1.cd",
+              "RelativeDocumentMoniker": "31.034-ClassDiagram1.cd",
+              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\31.034-ClassDiagram1.cd",
+              "RelativeToolTip": "31.034-ClassDiagram1.cd",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAADMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000463|",
+              "WhenOpened": "2026-03-25T18:45:53.96Z"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "app.manifest",
@@ -96,8 +131,7 @@
               "RelativeToolTip": "MY PROJECT\\app.manifest",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
-              "WhenOpened": "2025-08-08T20:12:18.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-08T20:12:18.912Z"
             },
             {
               "$type": "Document",
@@ -109,21 +143,7 @@
               "RelativeToolTip": "31.034-DwgsNotFound.Designer.vb",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAEAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2026-03-25T18:42:05.626Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ReadDwgs.vb",
-              "DocumentMoniker": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
-              "RelativeDocumentMoniker": "ReadDwgs.vb",
-              "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb",
-              "RelativeToolTip": "ReadDwgs.vb",
-              "ViewState": "AgIAAJoHAAAAAAAAAAAWwKMHAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-07-25T18:18:44.678Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T18:42:05.626Z"
             },
             {
               "$type": "Document",
@@ -135,16 +155,7 @@
               "RelativeToolTip": "31.034-File.vb",
               "ViewState": "AgIAAPEBAAAAAAAAAAAWwAECAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-08-07T19:18:13.923Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+              "WhenOpened": "2025-08-07T19:18:13.923Z"
             },
             {
               "$type": "Document",
@@ -156,8 +167,7 @@
               "RelativeToolTip": "31.034-Formatting.vb",
               "ViewState": "AgIAAE0BAAAAAAAAAAAWwF0BAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-08-07T20:40:51.911Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-07T20:40:51.911Z"
             },
             {
               "$type": "Document",
@@ -169,8 +179,7 @@
               "RelativeToolTip": "31.034-DwgsNotFound.vb",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2026-03-30T14:20:12.151Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T14:20:12.151Z"
             },
             {
               "$type": "Document",
@@ -182,20 +191,7 @@
               "RelativeToolTip": "ReadDwgs.Designer.vb",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGgAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2026-03-25T18:42:08.838Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Delegate.cs",
-              "DocumentMoniker": "C:\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs",
-              "ToolTip": "C:\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\..\\..\\Users\\dlong\\AppData\\Local\\Temp\\.vsdbgsrc\\760aa807f37f8556911f34a05778eaffb2ff5225538adbdee27ab23625297b51\\Delegate.cs [Read Only]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T19:57:54.375Z",
-              "EditorCaption": " [Read Only]"
+              "WhenOpened": "2026-03-25T18:42:08.838Z"
             },
             {
               "$type": "Document",
@@ -207,8 +203,7 @@
               "RelativeToolTip": "31.034-SaveAsFilename.vb",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-08-07T19:19:21.06Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-07T19:19:21.06Z"
             },
             {
               "$type": "Document",
@@ -219,8 +214,7 @@
               "ToolTip": "C:\\Working Copy GitHub-PDM-2024-FilesChkOut-New\\AutoCAD Programs\\AutoCAD-Pgm-ReadDwgsBOM\\ReadPartsListBOM-MX-Stds\\ReadDwgs.vb [Design]",
               "RelativeToolTip": "ReadDwgs.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-07-25T18:17:52.114Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-07-25T18:17:52.114Z"
             }
           ]
         }
